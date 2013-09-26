@@ -3,39 +3,25 @@
 var bumpMap : Texture;
 var bumpMap2 : Texture;
 var bumpMap3 : Texture;
-var image : int;
+var start= 0;
+var elapsed=0;
 function Start () {
+	start=Time.time;
 }
 
 function Update () {
-	if(image==0)
+	elapsed++;
+	if(elapsed%3==0)
 	{
 		renderer.material.SetTexture("_MainTex", bumpMap);
-		UpdateImageDelay();
 	}
-	else if(image==1)
+	else if(elapsed%3==1)
 	{	
 		renderer.material.SetTexture("_MainTex", bumpMap2);
-		UpdateImageDelay();
-	}else if(image==2)
+	}else if(elapsed%3==2)
 	{	
 		renderer.material.SetTexture("_MainTex", bumpMap3);
-		UpdateImageDelay();
-	}
-
-}
-
-function UpdateImageDelay () {
-	yield WaitForSeconds(2);
-	if(image==0)
-	{
-		image=1;
-	}
-	else if(image==1)
-	{
-		image=2;
-	}else if(image==2)
-	{
-		image=0;
 	}
 }
+
+
