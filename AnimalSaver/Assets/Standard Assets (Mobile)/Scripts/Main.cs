@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Main : MonoBehaviour {
 	
-	bool initialized = false;           // initialization notifier
+	//bool initialized = false;           // initialization notifier
     bool scrolling = false;             // scrolling notifier
 	
 	// Cow picture;
@@ -18,9 +18,9 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// resize filled sprites to match screen size
-        Resize("BackGround");
+        //Resize("BackGround");
         // set initialized notifier to true so we only initialize once.
-        initialized = true;
+        //initialized = true;
 		
 		// Cow picture;
 		cow_left = Resources.Load("cow_left") as Texture;
@@ -43,6 +43,7 @@ public class Main : MonoBehaviour {
         {
             // We found the sprite so lets size it to match the screen's resolution
             // We will assume the OTView.zoom factor is set to zero (no zooming)
+			Debug.Log(Screen.width);
             sprite.size = new Vector2(Screen.width, Screen.height);
         }
     }
@@ -98,8 +99,9 @@ public class Main : MonoBehaviour {
 			
 			GameObject obj = OT.CreateObject(animals[randomNumber]);
 			obj.guiTexture.texture = animal_texture;
+			//OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
+			//boat.position = new Vector2(50, 100);
 			t = 0;
 		}
-		
 	}
 }
