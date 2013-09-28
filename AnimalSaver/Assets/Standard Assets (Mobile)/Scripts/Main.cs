@@ -5,6 +5,9 @@ public class Main : MonoBehaviour {
 	
 	//bool initialized = false;           // initialization notifier
     bool scrolling = false;             // scrolling notifier
+	OTSprite boat;
+	System.Random random = new System.Random();
+	int boatSpeed = 2;
 	
 	// Use this for initialization
 	void Start () {
@@ -12,8 +15,9 @@ public class Main : MonoBehaviour {
         Resize("BackGround");
         // set initialized notifier to true so we only initialize once.
         //initialized = true;
-		OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
-		boat.position = new Vector2(Screen.width / 2, -Screen.height / 2.5f);
+		boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
+		boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
+		boatSpeed = random.Next(2,6);
 	}
 	
 
@@ -31,9 +35,9 @@ public class Main : MonoBehaviour {
         }
     }
 	
-	static string[] animals = new string[] {"Cow_pre", "Chick_pre"};
+	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
 	static string[] Obstacles = new string[] {"Maneatingplant_ani"};
-	System.Random random = new System.Random();
+	
 	// Update is called once per frame
 	float t;
 	float t2;
@@ -58,9 +62,12 @@ public class Main : MonoBehaviour {
 			t2 = 0;
 		}
 		
-		OTSprite boat = OT.ObjectByName("boat-1").GetComponent<OTSprite>();
-		boat.position = new Vector2(boat.position.x - 2, boat.position.y);
+		boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
 		if (boat.position.x < -Screen.width / 2)
-			boat.position = new Vector2(Screen.width / 2, -Screen.height / 2.5f);
+		{
+			boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
+			boatSpeed = random.Next(2,6);
+			print(boatSpeed);
+		}
 	}
 }
