@@ -32,20 +32,30 @@ public class Main : MonoBehaviour {
     }
 	
 	static string[] animals = new string[] {"Cow_pre", "Chick_pre"};
+	static string[] Obstacles = new string[] {"Maneatingplant_ani"};
 	System.Random random = new System.Random();
 	// Update is called once per frame
 	float t;
+	float t2;
 	// Update is called once per frame
 	void Update () 
 	{
 		int randomNumber = random.Next(0, 2);
-		
 		t += Time.deltaTime;
+		
+		t2 += Time.deltaTime;
 		if (t > 1.2f)
 		{
 			
 			GameObject obj = OT.CreateObject(animals[randomNumber]);
 			t = 0;
+		}
+		if(t2 > 3f)
+		{
+			// Create Obstacle every 3 seconds
+			OTSprite obj2 = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
+			
+			t2 = 0;
 		}
 		
 		OTSprite boat = OT.ObjectByName("boat-1").GetComponent<OTSprite>();
