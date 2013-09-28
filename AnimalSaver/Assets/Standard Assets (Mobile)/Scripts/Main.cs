@@ -9,9 +9,11 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// resize filled sprites to match screen size
-        //Resize("BackGround");
+        Resize("BackGround");
         // set initialized notifier to true so we only initialize once.
         //initialized = true;
+		OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
+		boat.position = new Vector2(Screen.width / 2, -Screen.height / 2.5f);
 	}
 	
 
@@ -24,8 +26,7 @@ public class Main : MonoBehaviour {
         if (sprite != null)
         {
             // We found the sprite so lets size it to match the screen's resolution
-            // We will assume the OTView.zoom factor is set to zero (no zooming)
-			Debug.Log(Screen.width);
+            // We will assume the OTView.zoom factor is set to zero (no zooming));
             sprite.size = new Vector2(Screen.width, Screen.height);
         }
     }
@@ -44,8 +45,12 @@ public class Main : MonoBehaviour {
 		{
 			
 			GameObject obj = OT.CreateObject(animals[randomNumber]);
-			//obj.guiTexture.texture = animal_texture;
 			t = 0;
 		}
+		
+		OTSprite boat = OT.ObjectByName("boat-1").GetComponent<OTSprite>();
+		boat.position = new Vector2(boat.position.x - 2, boat.position.y);
+		if (boat.position.x < -Screen.width / 2)
+			boat.position = new Vector2(Screen.width / 2, -Screen.height / 2.5f);
 	}
 }
