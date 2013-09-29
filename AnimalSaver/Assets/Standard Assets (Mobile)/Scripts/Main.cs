@@ -36,7 +36,7 @@ public class Main : MonoBehaviour {
     }
 	
 	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
-	static string[] Obstacles = new string[] {"Maneatingplant_ani"};
+	static string[] Obstacles = new string[] {"Maneatingplant_ani" , "bee_ani"};
 	
 	// Update is called once per frame
 	float t;
@@ -57,7 +57,7 @@ public class Main : MonoBehaviour {
 		if(t2 > 3f)
 		{
 			// Create Obstacle every 3 seconds
-			OTSprite obj2 = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
+			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumber]).GetComponent<OTSprite>();
 			
 			t2 = 0;
 		}

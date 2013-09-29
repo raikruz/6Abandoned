@@ -17,24 +17,24 @@ function Update () {
 	elapsed= Time.time -start;
 	if(elapsed==0)
 	{
-		renderer.material.SetTexture("_MainTex", bumpMap);
+		 gameObject.guiTexture.texture = bumpMap; 
 	}
-	else if(elapsed==5)
+	else if(elapsed==2)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap2);
-	}else if(elapsed==10)
+		 gameObject.guiTexture.texture = bumpMap2; 
+	}else if(elapsed==4)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap3);
+		 gameObject.guiTexture.texture = bumpMap3; 
 	}
-	else if(elapsed==15)
+	else if(elapsed==6)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap4);
-	}else if(elapsed==20)
+		 gameObject.guiTexture.texture = bumpMap4; 
+	}else if(elapsed==8)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap5);
-	}	else if(elapsed==25)
+		 gameObject.guiTexture.texture = bumpMap5; 
+	}	else if(elapsed==12)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap6);
+		 gameObject.guiTexture.texture = bumpMap6; 
 
 	}
 }

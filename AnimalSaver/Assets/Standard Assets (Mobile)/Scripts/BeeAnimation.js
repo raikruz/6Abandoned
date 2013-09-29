@@ -13,14 +13,14 @@ function Update () {
 	elapsed++;
 	if(elapsed%3==0)
 	{
-		renderer.material.SetTexture("_MainTex", bumpMap);
+		 gameObject.guiTexture.texture = bumpMap; 
 	}
 	else if(elapsed%3==1)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap2);
+		 gameObject.guiTexture.texture = bumpMap2; 
 	}else if(elapsed%3==2)
 	{	
-		renderer.material.SetTexture("_MainTex", bumpMap3);
+		 gameObject.guiTexture.texture = bumpMap3; 
 	}
 }
 
