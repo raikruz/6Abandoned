@@ -3,9 +3,10 @@ using System.Collections;
 
 public class Main : MonoBehaviour {
 	
-	//bool initialized = false;           // initialization notifier
+	bool initialized = false;           // initialization notifier
     bool scrolling = false;             // scrolling notifier
 	OTSprite boat;
+	OTAnimatingSprite ManEatFlower; 
 	System.Random random = new System.Random();
 	int boatSpeed = 2;
 	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
@@ -27,6 +28,8 @@ public class Main : MonoBehaviour {
 			i += (int)flower.size.x;
 		}
 		t2 = 0;
+		
+		// create 
 	}
 	
 
@@ -47,9 +50,30 @@ public class Main : MonoBehaviour {
 	// Update is called once per frame
 	float t;
 	float t2;
+	 // application initialization
+    void Initialize()
+    {
+		 // Get reference to gun animation sprite
+        ManEatFlower = OT.ObjectByName("ManEatFlowerSprite") as OTAnimatingSprite;
+		
+        // Set gun animation finish delegate
+        // HINT : We could use sprite.InitCallBacks(this) as well.
+        // but because delegates are the C# way we will use this technique
+        ManEatFlower.onAnimationFinish = OnAnimationFinish;
+		
+		// temporary
+		ManEatFlower.Play();
+        // set our initialization notifier - we only want to initialize once
+        initialized = true;
+	}
 	// Update is called once per frame
 	void Update () 
 	{
+		if(!initialized)
+		{
+			Initialize();
+			return;
+		}
 		int randomNumber = random.Next(0, 2);
 		t += Time.deltaTime;
 		
@@ -69,4 +93,13 @@ public class Main : MonoBehaviour {
 			print(boatSpeed);
 		}
 	}
+	public void OnAnimationFinish(OTObject owner)
+   {
+        if (owner == ManEatFlower)
+        {
+           // Because the only animation that finishes will be the gun's 'shoot' animation frameset
+            // we know that we have to switch to the gun's looping 'idle' animation frameset
+            ManEatFlower.PlayLoop("Start");
+        }
+    }
 }
