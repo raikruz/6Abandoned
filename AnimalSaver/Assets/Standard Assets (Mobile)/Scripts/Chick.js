@@ -66,4 +66,11 @@ function Update () {
 		// set the die flag
 		Chick_die = true;
 	}
+	
+	// destroy prefab to same memory
+	if(gameObject.transform.position.y < 0)
+	{
+		// when this prefab fall down out of the screen, destroy it
+		Destroy(this.gameObject);
+	}
 }
