@@ -8,6 +8,8 @@ public class Main : MonoBehaviour {
 	OTSprite boat;
 	System.Random random = new System.Random();
 	int boatSpeed = 2;
+	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
+	static string[] Obstacles = new string[] {"Maneatingplant_ani"};
 	
 	// Use this for initialization
 	void Start () {
@@ -18,6 +20,13 @@ public class Main : MonoBehaviour {
 		boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 		boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
 		boatSpeed = random.Next(2,6);
+		for (int i = 0; i < Screen.width;)
+		{
+			OTSprite flower = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
+			flower.position = new Vector2(-(Screen.width - flower.size.x) / 2 + i, -(Screen.height - flower.size.y) /2);
+			i += (int)flower.size.x;
+		}
+		t2 = 0;
 	}
 	
 
@@ -35,9 +44,6 @@ public class Main : MonoBehaviour {
         }
     }
 	
-	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
-	static string[] Obstacles = new string[] {"Maneatingplant_ani"};
-	
 	// Update is called once per frame
 	float t;
 	float t2;
@@ -54,14 +60,7 @@ public class Main : MonoBehaviour {
 			GameObject obj = OT.CreateObject(animals[randomNumber]);
 			t = 0;
 		}
-		if(t2 > 3f)
-		{
-			// Create Obstacle every 3 seconds
-			OTSprite obj2 = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
-			
-			t2 = 0;
-		}
-		
+
 		boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
 		if (boat.position.x < -Screen.width / 2)
 		{
