@@ -37,14 +37,13 @@ function Update ()
 {
 	var targetPos: Vector3 = transform.position;
 	var tmpY:float =  targetPos.y;
-	var tmpX:float =  transform.position.x;
+	var tmpX:float =  targetPos.x;
 	
 	// respond to the left arrow
 	if(Input.GetKey(KeyCode.LeftArrow) && Cow_die == false)
 	{
 		Cow.frameIndex = 2;
-		//transform.Translate(30 * Time.deltaTime, 0, 0);
-		tmpX -= 30 * Time.deltaTime;
+		//tmpX -= 30 * Time.deltaTime;
 		startPos.x+=-30 * Time.deltaTime;
 
 	}
@@ -52,7 +51,7 @@ function Update ()
 	else if(Input.GetKey(KeyCode.RightArrow) && Cow_die == false)
 	{
 		Cow.frameIndex = 3;
-		tmpX += 30 * Time.deltaTime;
+		//tmpX += 30 * Time.deltaTime;
 		startPos.x += 30 * Time.deltaTime;
 	}
 	// default down picture

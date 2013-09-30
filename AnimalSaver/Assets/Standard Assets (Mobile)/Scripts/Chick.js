@@ -43,14 +43,14 @@ function Update () {
 	if(Input.GetKey(KeyCode.LeftArrow) && Chick_die == false)
 	{
 		chick.frameIndex = 1;
-		transform.Translate(-30 * Time.deltaTime, 0, 0);
+		//transform.Translate(-30 * Time.deltaTime, 0, 0);
 		startPos.x += -30 * Time.deltaTime;
 	}
 	// respond to the right arrow
 	else if(Input.GetKey(KeyCode.RightArrow) && Chick_die == false)
 	{
 		chick.frameIndex = 3;
-		transform.Translate(30 * Time.deltaTime, 0, 0);
+		//transform.Translate(30 * Time.deltaTime, 0, 0);
 		startPos.x += 30 * Time.deltaTime;
 	}
 	// default down picture
@@ -66,7 +66,7 @@ function Update () {
 	
 
 	// determine the border of the object's movement
-	if(Mathf.Abs(gameObject.transform.position.x) > (Screen.width - chick.size.x))
+	if(Mathf.Abs(gameObject.transform.position.x) > ((Screen.width - chick.size.x)/2))
 	{
 		// show the Cow dead object 
 		chick.frameIndex = 2;
