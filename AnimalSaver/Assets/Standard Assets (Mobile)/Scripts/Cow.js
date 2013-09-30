@@ -1,87 +1,85 @@
 ﻿#pragma strict
-private var Cow_right : Texture;
-private var Cow_left : Texture;
-private var Cow_down : Texture;
-private var Cow_dead : Texture;
-private var Cow_r_dead : Texture;
+private var Cow:OTSprite;  
 private var Cow_die = false;
 
 private var startPos:Vector3;
 private var k:float;
 function Start () 
 {
+	// Get this cow's sprite
+	Cow = GetComponent("OTSprite");
+	Cow.InitCallBacks(this);
+	Cow.frameIndex = 1;
+	Cow.rigidbody.isKinematic = false;
 	// initialize variables
-	// initialize the velocity and start position
- 	gameObject.rigidbody.velocity = new Vector3(0, -0.25,0);
-	startPos.x = 0.5;
-	startPos.y = 0.87;
+	// initialize the velocity as 25 in -y direction
+	Cow.rigidbody.velocity = new Vector3(0, -25,0);
+ 	
+ 	var randomValue1:float = Random.value;
+ 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
+ 	// because it will minimize the falling range on the sky 
+ 	// start position x should be random
+ 	var creationScreenwidth = Screen.width - 3*Cow.size.y;
+	startPos.x =  creationScreenwidth*(randomValue1 - 0.5);
+	startPos.y = (Screen.height- Cow.size.y)/2;
 	startPos.z = 0;
+	Cow.position = new Vector2(startPos.x , startPos.y);
 
 	// give random initilial direction (left or right)
-	var randomValue:float = Random.value;
-	if(randomValue<0.5)
-		k = startPos.y*10-(3.1415926/2);
+	var randomValue2:float = Random.value;
+	if(randomValue2 < 0.5)
+		k = startPos.y*0.015-(3.1415926/2);
 	else
-		k = startPos.y*10+(3.1415926/2);
-	
-	Cow_right = Resources.Load("cow_right") as Texture;
-    Cow_left = Resources.Load("cow_left") as Texture;
-    Cow_down = Resources.Load("cow_down") as Texture;
-    Cow_dead = Resources.Load("cow_dead") as Texture;
-    Cow_r_dead = Resources.Load("cow_right_dead") as Texture;
+		k = startPos.y*0.015+(3.1415926/2);
 }
 
 function Update () 
 {
 	var targetPos: Vector3 = transform.position;
+	var tmpY:float =  targetPos.y;
+	var tmpX:float =  transform.position.x;
 	
 	// respond to the left arrow
 	if(Input.GetKey(KeyCode.LeftArrow) && Cow_die == false)
 	{
-		gameObject.guiTexture.texture = Cow_left;
-		transform.Translate(-0.3 * Time.deltaTime, 0, 0);
-		startPos.x+=-0.3 * Time.deltaTime;
+		Cow.frameIndex = 2;
+		//transform.Translate(30 * Time.deltaTime, 0, 0);
+		tmpX -= 30 * Time.deltaTime;
+		startPos.x+=-30 * Time.deltaTime;
 
 	}
 	// respond to the right arrow
 	else if(Input.GetKey(KeyCode.RightArrow) && Cow_die == false)
 	{
-		gameObject.guiTexture.texture = Cow_right;
-		transform.Translate(0.3 * Time.deltaTime, 0, 0);
-		startPos.x += 0.3 * Time.deltaTime;
+		Cow.frameIndex = 3;
+		tmpX += 30 * Time.deltaTime;
+		startPos.x += 30 * Time.deltaTime;
 	}
 	// default down picture
 	else if (Cow_die == false)
 	{
-		gameObject.guiTexture.texture = Cow_down;
+		Cow.frameIndex = 1;
 	}
 	// Reset the position according to interaction
 	if (Cow_die == false){
-		targetPos.x = startPos.x+(1/(1.2+0.25*Time.time))* Mathf.Cos(targetPos.y*10-k);
-		transform.position = Vector3.Lerp (transform.position, targetPos, Time.deltaTime * 1.0f);
+		tmpX = startPos.x+(1/((0.012)+0.00005*Time.time))* Mathf.Cos(tmpY*0.015-k);
+		Cow.position = new Vector2(tmpX,tmpY);
 	}
 	
 	// determine the border of the object's movement
-	// the middle x position is: x = 0.5
-	if(gameObject.transform.position.x < 0.25)
+	// the middle x position is: 
+	if(Cow.position.x  < - (Screen.width - Cow.size.x)/2)
 	{
 		// show the Cow dead object 
-		gameObject.guiTexture.texture = Cow_dead;
+		Cow.frameIndex = 0;
 		// set the die flag
 		Cow_die = true;
 	}
-	else if(gameObject.transform.position.x > 0.8)
+	else if(Cow.position.x >  (Screen.width- Cow.size.x)/2)
 	{
 		// show the Cow dead right object 
-		gameObject.guiTexture.texture = Cow_r_dead;
+		Cow.frameIndex = 4;
 		// set the die flag
 		Cow_die = true;
 	} 
-	
-	// destroy prefab to same memory
-	if(gameObject.transform.position.y < 0)
-	{
-		// when this prefab fall down out of the screen, destroy it
-		Destroy(this.gameObject);
-	}
 }

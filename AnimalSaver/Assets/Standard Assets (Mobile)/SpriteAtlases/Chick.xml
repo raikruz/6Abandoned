@@ -7,65 +7,65 @@
             <key>chick_down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{52,93}}</string>
+                <string>{{2,2},{90,111}}</string>
                 <key>offset</key>
-                <string>{-1,-8}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{18,17},{52,93}}</string>
+                <string>{{0,0},{90,111}}</string>
                 <key>sourceSize</key>
                 <string>{90,111}</string>
             </dict>
             <key>chick_left.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{56,2},{74,93}}</string>
+                <string>{{94,2},{90,111}}</string>
                 <key>offset</key>
-                <string>{7,-9}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{15,18},{74,93}}</string>
+                <string>{{0,0},{90,111}}</string>
                 <key>sourceSize</key>
                 <string>{90,111}</string>
             </dict>
             <key>chick_left_dead.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{132,2},{88,109}}</string>
+                <string>{{186,2},{90,111}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{88,109}}</string>
+                <string>{{0,0},{90,111}}</string>
                 <key>sourceSize</key>
                 <string>{90,111}</string>
             </dict>
             <key>chick_right.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,113},{74,93}}</string>
+                <string>{{278,2},{90,111}}</string>
                 <key>offset</key>
-                <string>{-8,-9}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,18},{74,93}}</string>
+                <string>{{0,0},{90,111}}</string>
                 <key>sourceSize</key>
                 <string>{90,111}</string>
             </dict>
             <key>chick_right_dead.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{78,113},{88,109}}</string>
+                <string>{{370,2},{90,111}}</string>
                 <key>offset</key>
-                <string>{-1,0}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,1},{88,109}}</string>
+                <string>{{0,0},{90,111}}</string>
                 <key>sourceSize</key>
                 <string>{90,111}</string>
             </dict>
@@ -75,13 +75,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>Chick.png</string>
+            <string>chick.png</string>
             <key>size</key>
-            <string>{256,256}</string>
+            <string>{512,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3ff51a1d970b07cc965e216dfa9cbb29:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:37d005c2af13a667d9a2410bd7973d35:1/1$</string>
             <key>textureFileName</key>
-            <string>Chick.png</string>
+            <string>chick.png</string>
         </dict>
     </dict>
 </plist>

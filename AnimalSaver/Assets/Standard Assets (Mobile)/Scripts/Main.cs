@@ -9,7 +9,7 @@ public class Main : MonoBehaviour {
 	OTAnimatingSprite ManEatFlower; 
 	System.Random random = new System.Random();
 	int boatSpeed = 2;
-	static string[] animals = new string[] {"Cow_Pre", "Chick_Pre"};
+	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Maneatingplant_ani","Bee_ani"};
 	
 	// Use this for initialization
@@ -17,7 +17,6 @@ public class Main : MonoBehaviour {
 		// resize filled sprites to match screen size
         Resize("BackGround");
         // set initialized notifier to true so we only initialize once.
-        //initialized = true;
 		boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 		boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
 		boatSpeed = random.Next(2,6);
@@ -53,16 +52,16 @@ public class Main : MonoBehaviour {
 	 // application initialization
     void Initialize()
     {
-		 // Get reference to gun animation sprite
-        ManEatFlower = OT.ObjectByName("ManEatFlowerSprite") as OTAnimatingSprite;
-		
-        // Set gun animation finish delegate
-        // HINT : We could use sprite.InitCallBacks(this) as well.
-        // but because delegates are the C# way we will use this technique
-        ManEatFlower.onAnimationFinish = OnAnimationFinish;
-		
-		// temporary
-		ManEatFlower.Play();
+//		 // Get reference to gun animation sprite
+//        ManEatFlower = OT.ObjectByName("ManEatFlowerSprite") as OTAnimatingSprite;
+//		
+//        // Set gun animation finish delegate
+//        // HINT : We could use sprite.InitCallBacks(this) as well.
+//        // but because delegates are the C# way we will use this technique
+//        ManEatFlower.onAnimationFinish = OnAnimationFinish;
+//		
+//		// temporary
+//		ManEatFlower.Play();
         // set our initialization notifier - we only want to initialize once
         initialized = true;
 	}
@@ -81,7 +80,7 @@ public class Main : MonoBehaviour {
 		if (t > 1.2f)
 		{
 			
-			GameObject obj = OT.CreateObject(animals[randomNumber]);
+			OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
 			t = 0;
 		}
 
@@ -102,11 +101,11 @@ public class Main : MonoBehaviour {
 	}
 	public void OnAnimationFinish(OTObject owner)
    {
-        if (owner == ManEatFlower)
-        {
-           // Because the only animation that finishes will be the gun's 'shoot' animation frameset
-            // we know that we have to switch to the gun's looping 'idle' animation frameset
-            ManEatFlower.PlayLoop("Start");
-        }
+//        if (owner == ManEatFlower)
+//        {
+//           // Because the only animation that finishes will be the gun's 'shoot' animation frameset
+//            // we know that we have to switch to the gun's looping 'idle' animation frameset
+//            ManEatFlower.PlayLoop("Start");
+//        }
     }
 }

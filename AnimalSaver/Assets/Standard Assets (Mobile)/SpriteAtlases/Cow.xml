@@ -7,65 +7,65 @@
             <key>cow_dead.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{124,213}}</string>
+                <string>{{2,2},{162,213}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{19,0},{124,213}}</string>
+                <string>{{0,0},{162,213}}</string>
                 <key>sourceSize</key>
                 <string>{162,213}</string>
             </dict>
             <key>cow_down.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{128,2},{138,179}}</string>
+                <string>{{166,2},{162,213}}</string>
                 <key>offset</key>
-                <string>{4,-17}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{16,34},{138,179}}</string>
+                <string>{{0,0},{162,213}}</string>
                 <key>sourceSize</key>
                 <string>{162,213}</string>
             </dict>
             <key>cow_left.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{268,2},{160,179}}</string>
+                <string>{{330,2},{162,213}}</string>
                 <key>offset</key>
-                <string>{0,-16}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,33},{160,179}}</string>
+                <string>{{0,0},{162,213}}</string>
                 <key>sourceSize</key>
                 <string>{162,213}</string>
             </dict>
             <key>cow_right.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,217},{160,179}}</string>
+                <string>{{2,217},{162,213}}</string>
                 <key>offset</key>
-                <string>{0,-16}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1,33},{160,179}}</string>
+                <string>{{0,0},{162,213}}</string>
                 <key>sourceSize</key>
                 <string>{162,213}</string>
             </dict>
             <key>cow_right_dead.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{164,217},{124,213}}</string>
+                <string>{{166,217},{162,213}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{19,0},{124,213}}</string>
+                <string>{{0,0},{162,213}}</string>
                 <key>sourceSize</key>
                 <string>{162,213}</string>
             </dict>
@@ -75,13 +75,13 @@
             <key>format</key>
             <integer>2</integer>
             <key>realTextureFileName</key>
-            <string>Cow.png</string>
+            <string>cow.png</string>
             <key>size</key>
             <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ecb9d2ca8edbdca83a73ecd59320c13f:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:2fadd40fd5ad19e392c83835f21c44a3:1/1$</string>
             <key>textureFileName</key>
-            <string>Cow.png</string>
+            <string>cow.png</string>
         </dict>
     </dict>
 </plist>
