@@ -74,3 +74,14 @@ function Update () {
 		Chick_die = true;
 	}
 }
+
+function OnCollision(owner:OTObject)
+{
+	// a collision occured
+	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
+}
+
+function onOutOfView(owner:OTObject)
+{
+    OT.DestroyObject(owner);
+}

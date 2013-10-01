@@ -15,7 +15,18 @@ public class Boat : MonoBehaviour {
 	
 	}
 	
-	void OnCollision(OTObject owner)
+	public void OnStay(OTObject owner)
+    {
+        //OT.print(owner.name+" stay with "+owner.collisionObject.name);
+    }
+    
+    public void OnExit(OTObject owner)
+    {
+        OT.print(owner.name+" exit with "+owner.collisionObject.name);
+    }
+    // 
+	
+	public void OnCollision(OTObject owner)
 	{
 		// a collision occured
 		OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
