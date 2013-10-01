@@ -5,10 +5,10 @@ public class Main : MonoBehaviour {
 	
 	bool initialized = false;           // initialization notifier
     bool scrolling = false;             // scrolling notifier
-	OTSprite boat;
 	OTAnimatingSprite ManEatFlower; 
 	System.Random random = new System.Random();
 	int boatSpeed = 2;
+	static int boatNum = 2;
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Maneatingplant_ani","Bee_ani"};
 	
@@ -17,9 +17,14 @@ public class Main : MonoBehaviour {
 		// resize filled sprites to match screen size
         Resize("BackGround");
         // set initialized notifier to true so we only initialize once.
-		boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
-		boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
+		for (int i = 0; i < boatNum; ++i)
+		{
+			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
+			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y) / 2);	
+			boat.name = "Boat" + i.ToString();
+		}
 		boatSpeed = random.Next(2,6);
+		
 		for (int i = 0; i < Screen.width;)
 		{
 			OTSprite flower = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
@@ -91,12 +96,17 @@ public class Main : MonoBehaviour {
 			
 			t2 = 0;
 		}
-		boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
-		if (boat.position.x < -Screen.width / 2)
+		
+		for (int i = 0; i < boatNum; ++i)
 		{
-			boat.position = new Vector2(Screen.width / 2, -(Screen.height - boat.size.y) / 2);
-			boatSpeed = random.Next(2,6);
-			print(boatSpeed);
+			string boatName = "Boat" + i.ToString();
+			OTSprite boat = OT.ObjectByName(boatName).GetComponent<OTSprite>();
+			boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
+			if (boat.position.x < -(Screen.width + boat.size.x) / 2)
+			{
+				boat.position = new Vector2((Screen.width + boat.size.x) / 2, -(Screen.height - boat.size.y) / 2);
+				boatSpeed = random.Next(2,6);
+			}
 		}
 	}
 	public void OnAnimationFinish(OTObject owner)
