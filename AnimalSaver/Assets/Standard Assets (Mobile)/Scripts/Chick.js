@@ -78,6 +78,8 @@ function Update () {
 	{
 	 // Destroy the this the object
 	 Destroy(chick.gameObject);
+	 // Test Game Over function
+	 Application.LoadLevel(1);
 	}
 
 }

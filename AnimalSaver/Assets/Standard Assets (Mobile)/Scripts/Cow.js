@@ -85,6 +85,8 @@ function Update ()
 	{
 	 // Destroy the this the object
 	 Destroy(Cow.gameObject);
+	 // Test Game Over function
+	 Application.LoadLevel(2);
 	}
 }
 
