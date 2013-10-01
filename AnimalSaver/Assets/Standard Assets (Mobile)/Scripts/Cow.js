@@ -81,6 +81,11 @@ function Update ()
 		// set the die flag
 		Cow_die = true;
 	} 
+	if (Cow.outOfView)
+	{
+	 // Destroy the this the object
+	 Destroy(Cow.gameObject);
+	}
 }
 
 function OnCollision(owner:OTObject)
@@ -89,7 +94,7 @@ function OnCollision(owner:OTObject)
 	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
 }
 
-function onOutOfView(owner:OTObject)
-{
-    OT.DestroyObject(owner);
-}
+//function onOutOfView(owner:OTObject)
+//{
+//    OT.DestroyObject(owner);
+//}
