@@ -1,11 +1,17 @@
 ﻿#pragma strict
 private var chick:OTSprite;  
 private var Chick_die = false;
-
+private var landWater:OTSprite;
+private var landBoat:OTSprite;  
+private var landBoatPosX:float;  
 private var startPos:Vector3;
 private var k:float;
 function Start()
 {
+	landWater = null;
+	landBoat = null;
+	landBoatPosX = 0f;
+	
 	// Get this chick's sprite
 	chick = GetComponent("OTSprite");
 	chick.InitCallBacks(this);
@@ -22,7 +28,7 @@ function Start()
  	// start position x should be random
 	var creationScreenwidth = Screen.width - 3*chick.size.y;
 	startPos.x =  creationScreenwidth*(randomValue1 - 0.5);
-	startPos.y = (Screen.height- chick.size.y)/2;
+	startPos.y = Screen.height/2;
 	startPos.z = 0;
 	chick.position = new Vector2(startPos.x , startPos.y);
 	
@@ -35,9 +41,35 @@ function Start()
 }
 
 function Update () {
+	
 	var targetPos: Vector3 = transform.position;
 	var tmpY:float =  targetPos.y;
-	var tmpX:float =  transform.position.x;
+	var tmpX:float =  targetPos.x;
+	
+	// if it lands on one boat, let it move with boat
+	if(landBoat != null) {
+		tmpX += landBoat.position.x - landBoatPosX;
+		landBoatPosX = landBoat.position.x;
+		chick.position = new Vector2(tmpX,tmpY);
+		if (chick.outOfView)
+		{
+		 // Destroy the object
+		 Destroy(chick.gameObject);
+		}
+		return;
+	} else if (landWater != null) { 
+		 // if it lands in water, let it die
+		 chick.frameIndex = 0;
+		 // set the die flag
+		 Chick_die = true;
+		 chick.depth = 0.5; // on back
+		 if (chick.outOfView)
+		{
+		 // Destroy the object
+		 Destroy(chick.gameObject);
+		}  
+		return;
+	}
 	
 	// respond to the left arrow
 	if(Input.GetKey(KeyCode.LeftArrow) && Chick_die == false)
@@ -76,19 +108,45 @@ function Update () {
 	
 	if (chick.outOfView)
 	{
-	 // Destroy the this the object
-	 Destroy(chick.gameObject);
-	 // Test Game Over function
-	 Application.LoadLevel(1);
+	 	// Destroy the object
+	 	Destroy(chick.gameObject);
+	 	// Test Game Over function
+		Application.LoadLevel(1);
 	}
 
 }
-
-function OnCollision(owner:OTObject)
+public function OnStay(owner:OTObject)
 {
-	// a collision occured
-	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
+    var obj:OTObject = owner.collisionObject;  
+	//var box:BoxCollider= null;
+	//	box = GetComponent(BoxCollider);
+	if(Chick_die == false
+     	&& (obj.name == "Boat0" || obj.name == "Boat1") 
+ 		&& (obj.position.x+obj.size.x/2) >= (chick.position.x+chick.size.x/2)
+ 		&& (obj.position.x-obj.size.x/2) <= (chick.position.x-chick.size.x/2)
+ 		&& (obj.position.y+obj.size.y/2) >= (chick.position.y+chick.size.y/6))
+    {
+    	landBoat = owner.collisionObject;
+    	landBoatPosX = landBoat.position.x;
+    	chick.depth = 0.5; // on back 
+    	chick.rigidbody.velocity.y = 0;
+    	chick.collidable = false; // no need enter onStay any more
+    } 
+//    else if(collide with Water){
+//    	// show the Cow dead left object 
+//		chick.frameIndex = 0;
+//		//Cow.depth += 0.5; // on back 
+//		// set the die flag
+//		Chick_die = true;
+//		chick.depth = 0.5; // on back  
+//		chick.collidable = false; // no need enter onStay any more
+//    }
 }
+//function OnCollision(owner:OTObject)
+//{
+//	// a collision occured
+//	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
+//}
 
 //function onOutOfView(owner:OTObject)
 //{
