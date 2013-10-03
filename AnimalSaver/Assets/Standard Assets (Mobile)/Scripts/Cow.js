@@ -6,6 +6,7 @@ private var landBoat:OTSprite;
 private var landBoatPosX:float;  
 private var startPos:Vector3;
 private var k:float;
+private var mouseDownPosition:Vector3;;
 function Start () 
 {
 	landWater = null;
@@ -29,7 +30,7 @@ function Start ()
 	startPos.y = Screen.height/2;
 	startPos.z = 0;
 	Cow.position = new Vector2(startPos.x , startPos.y);
-
+	
 	// give random initilial direction (left or right)
 	var randomValue2:float = Random.value;
 	if(randomValue2 < 0.5)
@@ -70,6 +71,17 @@ function Update ()
 		return;
 	}
 	
+	//This one is global detection
+	//if (Input.GetMouseButtonDown(0))
+	//{
+   	//	mouseDownPosition = Input.mousePosition;
+   	//	OT.print("Left Button down On at " + Input.mousePosition.x + "," + Input.mousePosition.y);
+	//}
+  	//else if (Input.GetMouseButtonUp(0))
+	//{
+   	//	OT.print("Left Button up On at " + Input.mousePosition.x + "," + Input.mousePosition.y);
+	//}
+
 	// respond to the left arrow
 	if(Input.GetKey(KeyCode.LeftArrow) && Cow_die == false)
 	{
@@ -150,12 +162,20 @@ public function OnStay(owner:OTObject)
 //    }
 }
 
-//function OnCollision(owner:OTObject)
+//Move to event to main window so that mouse does not need click on object percisely
+//This one is local detection. set register input to true in designer
+//function OnInput(owner:OTObject):void
 //{
-//	// a collision occured
-//	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
+//   	if (Input.GetMouseButtonDown(0))
+//	{
+//    	mouseDownPosition = Input.mousePosition;
+//    	OT.print("Left Button down On "+owner.name + " at " + mouseDownPosition.x + "," + mouseDownPosition.y);
+//	}
+//   	else if (Input.GetMouseButtonUp(0))
+//	{
+//    	OT.print("Left Button up On "+owner.name + " at " + mouseDownPosition.x + "," + mouseDownPosition.y);
+//	}
 //}
-
 //function onOutOfView(owner:OTObject)
 //{
 //    OT.DestroyObject(owner);
