@@ -7,15 +7,20 @@ public class Main : MonoBehaviour {
     bool scrolling = false;             // scrolling notifier
 	OTAnimatingSprite ManEatFlower; 
 	System.Random random = new System.Random();
-	int boatSpeed = 2;
+	static int boatSpeed = 2;
 	static int boatNum = 2;
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Maneatingplant_ani","Bee_ani"};
 	Vector3 mousePosition;
-	string windDirection = "none";
+	Vector3 mouseUpPosition;
+	static string windDirection = "none";
 	OTObject windLeft;
 	OTObject windRight;
 	OTObject windDown;
+	float t;
+	float t2;
+	float tWind = 0;
+	static float windDuration = 2.0f;
 	// Use this for initialization
 	void Start () {
 		// resize filled sprites to match screen size
@@ -57,9 +62,6 @@ public class Main : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	float t;
-	float t2;
 	 // application initialization
     void Initialize()
     {
@@ -114,7 +116,7 @@ public class Main : MonoBehaviour {
 		}
 		
 		UpdateWindDirection();
-		OT.print(windDirection);
+		//OT.print(windDirection);
 		DrawWind();	
 	}
 	
@@ -128,7 +130,7 @@ public class Main : MonoBehaviour {
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-			Vector3 mouseUpPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mouseUpPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			//OT.print(mouseUpPosition.x + "," + mouseUpPosition.y);
 			float xPos = mouseUpPosition.x - mousePosition.x;
 			float yPos = mouseUpPosition.y - mousePosition.y;
@@ -149,7 +151,15 @@ public class Main : MonoBehaviour {
 				else 
 					windDirection = "none";
 			}
+			
+			tWind = 0;
 		}
+		
+		if (windDirection != "none")
+			tWind += Time.deltaTime;
+		
+		if (tWind > windDuration)
+			windDirection = "none";			
 	}
 	
 	void DrawWind()
@@ -178,15 +188,30 @@ public class Main : MonoBehaviour {
 				wind = windDown;
 			}
 			break;
+		default:
+			{
+				windRight.visible = false;
+				windLeft.visible = false;
+				windDown.visible = false;
+			}
+			break;
 		}
 		
 		if (wind != null)
 		{
-			wind.position = new Vector2 (mousePosition.x, mousePosition.y);
+			wind.position = new Vector2 ((mousePosition.x + mouseUpPosition.x) / 2, (mousePosition.y + mouseUpPosition.y) / 2);
 			wind.visible = true;
 		}
 	}
 		
+	public static string WindDirection
+	{
+		get
+		{
+			return windDirection;
+		}
+	}
+	
 	public void OnAnimationFinish(OTObject owner)
    {
 //        if (owner == ManEatFlower)

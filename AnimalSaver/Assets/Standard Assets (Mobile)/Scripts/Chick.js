@@ -71,6 +71,12 @@ function Update () {
 		return;
 	}
 	
+	//Not working. Need to figure out how to call funtion of other objects or scripts
+	//var other = Camera.main.GetComponent("main.cs");
+	// Call the function DoSomething on the script
+	//OT.print(other.WindDirection);
+	//OT.print(Main.WindDirection);
+	
 	// respond to the left arrow
 	if(Input.GetKey(KeyCode.LeftArrow) && Chick_die == false)
 	{
