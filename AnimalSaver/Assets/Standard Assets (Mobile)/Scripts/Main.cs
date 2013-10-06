@@ -26,6 +26,7 @@ public class Main : MonoBehaviour {
 		// resize filled sprites to match screen size
         Resize("BackGround", 0);
 		Resize("BackGround_Bottom",1);
+		Resize("Score", 2);
         // set initialized notifier to true so we only initialize once.
 		for (int i = 0; i < boatNum; ++i)
 		{
@@ -69,7 +70,8 @@ public class Main : MonoBehaviour {
 				sprite.position = new Vector2(0, -Screen.height*565f/1280f);
 				break;
 			case 2:
-				
+				sprite.size = new Vector2(Screen.width, sprite.size.y);
+				sprite.position = new Vector2(0, (Screen.height - sprite.size.y) / 2);
 				break;
 			default:
 				break;
