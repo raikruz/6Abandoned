@@ -20,7 +20,7 @@ public class Main : MonoBehaviour {
 	float t;
 	float t2;
 	float tWind = 0;
-	static float windDuration = 2.0f;
+	public static float windDuration = 2.0f;
 	// Use this for initialization
 	void Start () {
 		// resize filled sprites to match screen size
@@ -105,7 +105,7 @@ public class Main : MonoBehaviour {
 		t += Time.deltaTime;
 		
 		t2 += Time.deltaTime;
-		if (t > 1.2f)
+		if (t > 5.0f)
 		{
 			
 			OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();

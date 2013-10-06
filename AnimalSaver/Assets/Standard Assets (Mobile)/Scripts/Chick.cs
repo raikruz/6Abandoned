@@ -10,6 +10,8 @@ public class Chick : MonoBehaviour {
 	float landBoatPosX;  
 	Vector3 startPos;
 	float k;
+	bool bWindAffected;
+	float tWind;
 	// Use this for initialization
 	void Start () {
 		landBoat = null;
@@ -18,6 +20,7 @@ public class Chick : MonoBehaviour {
 		// Get this chick's sprite
 		chick = GetComponent<OTSprite>();
 		chick.InitCallBacks(this);
+		chick.onInput = OnInput;
 		chick.frameIndex = 0;
 		// initialize variables
 		// initialize the velocity and start position
@@ -41,6 +44,9 @@ public class Chick : MonoBehaviour {
 			k = startPos.y*0.015f-(3.1415926f/2f);
 		else
 			k = startPos.y*0.015f+(3.1415926f/2f);
+		
+		bWindAffected = false;
+		tWind = 0;
 	}
 	
 	// Update is called once per frame
@@ -69,39 +75,57 @@ public class Chick : MonoBehaviour {
 		//OT.print(Main.WindDirection);
 		if(Chick_die == false)
 		{
-			// respond to the left arrow
-			if(Input.GetKey(KeyCode.LeftArrow))
+			if (bWindAffected)
 			{
-				chick.frameIndex = 1;
-				startPos.x += -30 * Time.deltaTime;
-				audio.Play();
-			}
-			// respond to the right arrow
-			else if(Input.GetKey(KeyCode.RightArrow))
-			{
-				chick.frameIndex = 3;
-				startPos.x += 30 * Time.deltaTime;
-				audio.Play();
-			}
-			// default down picture
-			else 
-			{
-				chick.frameIndex = 0;
-			}
-			tmpX = startPos.x+(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+				// respond to the left arrow
+				if(Main.WindDirection == "left")
+				{
+					chick.frameIndex = 1;
+					startPos.x += -30 * Time.deltaTime;
+					audio.Play();
+				}
+				else if(Main.WindDirection == "right")
+				{
+					chick.frameIndex = 3;
+					startPos.x += 30 * Time.deltaTime;
+					audio.Play();
+				}
+				else if(Main.WindDirection == "down")
+				{
+					chick.frameIndex = 0;
+					tmpY = targetPos.y - 30 * Time.deltaTime;
+					audio.Play();
+				}
+				else 
+					chick.frameIndex = 0;
 		
-			// determine the border of the object's movement
-			if(Mathf.Abs(gameObject.transform.position.x) > ((Screen.width - chick.size.x)/2))
-			{
-				tmpX = startPos.x-(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+					
+				if (Main.WindDirection == "left" || 
+					Main.WindDirection == "right" ||
+					Main.WindDirection == "down")
+					tWind += Time.deltaTime;		
 			}
-			// Reset the position according to interaction
-			chick.position = new Vector2(tmpX,tmpY);
-		} // end if (chick_die == false)
-		else //Chick_die == true
-		{
-			//chick.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
 		}
+		else 
+			chick.frameIndex = 2;
+
+		
+		if (tWind > Main.windDuration || Main.WindDirection == "none")
+		{
+			bWindAffected = false;
+			tWind = 0;
+		}
+		
+		// Reset the position according to interaction
+		if (Chick_die == false){
+			tmpX = startPos.x+(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+			if (tmpX  < - (Screen.width - chick.size.x)/2)
+				tmpX = -(Screen.width - chick.size.x)/2;
+			if (tmpX >  (Screen.width- chick.size.x)/2)
+				tmpX = (Screen.width- chick.size.x)/2;
+			chick.position = new Vector2(tmpX,tmpY);
+		}
+		
 		if (chick.outOfView)
 		{
 		 	// Destroy the object
@@ -110,6 +134,7 @@ public class Chick : MonoBehaviour {
 			Application.LoadLevel(1);
 		}
 	}
+
 	public void OnStay(OTObject owner)
 	{
 	    OTObject obj = owner.collisionObject;  
@@ -137,6 +162,13 @@ public class Chick : MonoBehaviour {
 	    	chick.collidable = false; // no need enter onStay any more
 	    } 
 	}
+	
+	void OnInput(OTObject owner)
+	{
+		OT.print("OnInput " + owner.name);
+		bWindAffected = true;
+	}
+	
 	//function OnCollision(owner:OTObject)
 	//{
 	//	// a collision occured

@@ -12,6 +12,8 @@ public class Cow : MonoBehaviour {
 	Vector3 startPos;
 	float k;
 	Vector3 mouseDownPosition;
+	bool bWindAffected;
+	float tWind;
 	// Use this for initialization
 	void Start () {
 		//landWater = null;
@@ -21,6 +23,7 @@ public class Cow : MonoBehaviour {
 		// Get this chick's sprite
 		cow = GetComponent<OTSprite>();
 		cow.InitCallBacks(this);
+		cow.onInput = OnInput;	
 		cow.frameIndex = 1;
 		// initialize variables
 		// initialize the velocity and start position
@@ -44,6 +47,9 @@ public class Cow : MonoBehaviour {
 			k = startPos.y*0.015f-(3.1415926f/2f);
 		else
 			k = startPos.y*0.015f+(3.1415926f/2f);
+		
+		bWindAffected = false;
+		tWind = 0;
 	}
 	
 	// Update is called once per frame
@@ -65,60 +71,58 @@ public class Cow : MonoBehaviour {
 			return;
 		}
 
-		
-		//This one is global detection
-		//if (Input.GetMouseButtonDown(0))
-		//{
-	   	//	mouseDownPosition = Input.mousePosition;
-	   	//	OT.print("Left Button down On at " + Input.mousePosition.x + "," + Input.mousePosition.y);
-		//}
-	  	//else if (Input.GetMouseButtonUp(0))
-		//{
-	   	//	OT.print("Left Button up On at " + Input.mousePosition.x + "," + Input.mousePosition.y);
-		//}
 		if(Cow_die == false)
 		{
-			// respond to the left arrow
-			if(Input.GetKey(KeyCode.LeftArrow))
+			if (bWindAffected)
 			{
-				cow.frameIndex = 2;
-				startPos.x += -30 * Time.deltaTime;
-				audio.Play();
+				// respond to the left arrow
+				if(Main.WindDirection == "left")
+				{
+					cow.frameIndex = 2;
+					startPos.x += -30 * Time.deltaTime;
+					audio.Play();
+				}
+				else if(Main.WindDirection == "right")
+	
+				{
+					cow.frameIndex = 3;
+					startPos.x += 30 * Time.deltaTime;
+					audio.Play();			
+				}
+				else if(Main.WindDirection == "down")
+				{
+					cow.frameIndex = 1;
+					tmpY = targetPos.y - 30 * Time.deltaTime;
+					audio.Play();
+				}
+				else
+					cow.frameIndex = 1;
+				// Reset the position according to interaction	
+				
+				if (Main.WindDirection == "left" || 
+					Main.WindDirection == "right" ||
+					Main.WindDirection == "down")
+					tWind += Time.deltaTime;
 			}
-			// respond to the right arrow
-			else if(Input.GetKey(KeyCode.RightArrow))
-			{
-				cow.frameIndex = 3;
-				startPos.x += 30 * Time.deltaTime;
-				audio.Play();			
-			}
-			// default down picture
-			else
-			{
-				cow.frameIndex = 1;
-			}
-			// Reset the position according to interaction
-			
-			tmpX = startPos.x+(1f/((0.012f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
-			cow.position = new Vector2(tmpX,tmpY);
+		}
+		else
+			cow.frameIndex = 0;
 		
-			// determine the border of the object's movement
-			// the middle x position is: 
-			if(cow.position.x  < - (Screen.width - cow.size.x)/2)
-			{
-				// show the Cow dead object 
-				cow.frameIndex = 0;
-				// set the die flag
-				Cow_die = true;
-			}
-			else if(cow.position.x >  (Screen.width- cow.size.x)/2)
-			{
-				// show the Cow dead right object 
-				cow.frameIndex = 4;
-				//cow.depth += 0.5; // on back 
-				// set the die flag
-				Cow_die = true;
-			} 
+		if (tWind > Main.windDuration || Main.WindDirection == "none")
+		{
+			bWindAffected = false;
+			tWind = 0;
+		}
+		
+		// Reset the position according to interaction
+		if (Cow_die == false){
+			tmpX = startPos.x+(1f/((0.012f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+			if (tmpX  < - (Screen.width - cow.size.x)/2)
+				tmpX = -(Screen.width - cow.size.x)/2;
+			if (tmpX >  (Screen.width- cow.size.x)/2)
+				tmpX = (Screen.width- cow.size.x)/2;
+			cow.position = new Vector2(tmpX,tmpY);
+
 		} // end if (cow_die == false)
 		else //Cow_die == true
 		{
@@ -134,7 +138,7 @@ public class Cow : MonoBehaviour {
 	
 		}
 	}
-	
+
 	public void OnStay(OTObject owner)
 	{
 		OTObject obj = owner.collisionObject;  
@@ -166,18 +170,12 @@ public class Cow : MonoBehaviour {
 	}
 	//Move to event to main window so that mouse does not need click on object percisely
 	//This one is local detection. set register input to true in designer
-	//function OnInput(owner:OTObject):void
-	//{
-	//   	if (Input.GetMouseButtonDown(0))
-	//	{
-	//    	mouseDownPosition = Input.mousePosition;
-	//    	OT.print("Left Button down On "+owner.name + " at " + mouseDownPosition.x + "," + mouseDownPosition.y);
-	//	}
-	//   	else if (Input.GetMouseButtonUp(0))
-	//	{
-	//    	OT.print("Left Button up On "+owner.name + " at " + mouseDownPosition.x + "," + mouseDownPosition.y);
-	//	}
-	//}
+	void OnInput(OTObject owner)
+	{
+		OT.print("OnInput " + owner.name);
+		bWindAffected = true;
+	}
+	
 	//function onOutOfView(owner:OTObject)
 	//{
 	//    OT.DestroyObject(owner);
