@@ -24,7 +24,8 @@ public class Main : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		// resize filled sprites to match screen size
-        Resize("BackGround");
+        Resize("BackGround", 0);
+		Resize("BackGround_Bottom",1);
         // set initialized notifier to true so we only initialize once.
 		for (int i = 0; i < boatNum; ++i)
 		{
@@ -33,12 +34,12 @@ public class Main : MonoBehaviour {
 			boat.name = "Boat" + i.ToString();
 		}
 		
-		for (int i = 0; i < Screen.width;)
-		{
-			OTSprite flower = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
-			flower.position = new Vector2(-(Screen.width - flower.size.x) / 2 + i, -(Screen.height - flower.size.y) /2);
-			i += (int)flower.size.x;
-		}
+//		for (int i = 0; i < Screen.width;)
+//		{
+//			OTSprite flower = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
+//			flower.position = new Vector2(-(Screen.width - flower.size.x) / 2 + i, -(Screen.height - flower.size.y) /2);
+//			i += (int)flower.size.x;
+//		}
 		t2 = 0;
 		
 		windLeft = OT.ObjectByName("WindLeft");
@@ -50,7 +51,7 @@ public class Main : MonoBehaviour {
 
     // This method will resize the a FilledSprite ( provided by name )
     // to match the current view (resolution).
-    void Resize(string spriteName)
+    void Resize(string spriteName, int type)
     {
         // Lookup the FilledSprite using its name.
         OTObject sprite = OT.ObjectByName(spriteName);
@@ -58,7 +59,21 @@ public class Main : MonoBehaviour {
         {
             // We found the sprite so lets size it to match the screen's resolution
             // We will assume the OTView.zoom factor is set to zero (no zooming));
-            sprite.size = new Vector2(Screen.width, Screen.height);
+            switch(type)
+			{
+			case 0: // background
+            	sprite.size = new Vector2(Screen.width, Screen.height);
+				break;
+			case 1:  // bottom
+				sprite.size = new Vector2(Screen.width, Screen.height * 150f/1280f);
+				sprite.position = new Vector2(0, -Screen.height*565f/1280f);
+				break;
+			case 2:
+				
+				break;
+			default:
+				break;
+			}
         }
     }
 

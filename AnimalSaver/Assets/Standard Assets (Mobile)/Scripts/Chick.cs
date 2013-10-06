@@ -6,14 +6,12 @@ public class Chick : MonoBehaviour {
 	
 	OTSprite chick;  
 	bool Chick_die = false;
-	OTObject landWater;
 	OTObject landBoat;  
 	float landBoatPosX;  
 	Vector3 startPos;
 	float k;
 	// Use this for initialization
 	void Start () {
-		landWater = null;
 		landBoat = null;
 		landBoatPosX = 0f;
 		
@@ -62,18 +60,6 @@ public class Chick : MonoBehaviour {
 			 Destroy(chick.gameObject);
 			}
 			return;
-		} else if (landWater != null) { 
-			 // if it lands in water, let it die
-			 chick.frameIndex = 0;
-			 // set the die flag
-			 Chick_die = true;
-			 //chick.depth = 0.5; // on back
-			 if (chick.outOfView)
-			{
-			 // Destroy the object
-			 Destroy(chick.gameObject);
-			}  
-			return;
 		}
 		
 		//Not working. Need to figure out how to call funtion of other objects or scripts
@@ -81,42 +67,41 @@ public class Chick : MonoBehaviour {
 		// Call the function DoSomething on the script
 		//OT.print(other.WindDirection);
 		//OT.print(Main.WindDirection);
-		
-		// respond to the left arrow
-		if(Input.GetKey(KeyCode.LeftArrow) && Chick_die == false)
+		if(Chick_die == false)
 		{
-			chick.frameIndex = 1;
-			startPos.x += -30 * Time.deltaTime;
-			audio.Play();
-		}
-		// respond to the right arrow
-		else if(Input.GetKey(KeyCode.RightArrow) && Chick_die == false)
-		{
-			chick.frameIndex = 3;
-			startPos.x += 30 * Time.deltaTime;
-			audio.Play();
-		}
-		// default down picture
-		else if(Chick_die == false)
-		{
-			chick.frameIndex = 0;
-		}
-		// Reset the position according to interaction
-		if (Chick_die == false){
+			// respond to the left arrow
+			if(Input.GetKey(KeyCode.LeftArrow))
+			{
+				chick.frameIndex = 1;
+				startPos.x += -30 * Time.deltaTime;
+				audio.Play();
+			}
+			// respond to the right arrow
+			else if(Input.GetKey(KeyCode.RightArrow))
+			{
+				chick.frameIndex = 3;
+				startPos.x += 30 * Time.deltaTime;
+				audio.Play();
+			}
+			// default down picture
+			else 
+			{
+				chick.frameIndex = 0;
+			}
 			tmpX = startPos.x+(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+		
+			// determine the border of the object's movement
+			if(Mathf.Abs(gameObject.transform.position.x) > ((Screen.width - chick.size.x)/2))
+			{
+				tmpX = startPos.x-(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+			}
+			// Reset the position according to interaction
 			chick.position = new Vector2(tmpX,tmpY);
-		}
-		
-	
-		// determine the border of the object's movement
-		if(Mathf.Abs(gameObject.transform.position.x) > ((Screen.width - chick.size.x)/2))
+		} // end if (chick_die == false)
+		else //Chick_die == true
 		{
-			// show the Cow dead object 
-			chick.frameIndex = 2;
-			// set the die flag
-			Chick_die = true;
+			//chick.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
 		}
-		
 		if (chick.outOfView)
 		{
 		 	// Destroy the object
@@ -128,13 +113,22 @@ public class Chick : MonoBehaviour {
 	public void OnStay(OTObject owner)
 	{
 	    OTObject obj = owner.collisionObject;  
-		//var box:BoxCollider= null;
-		//	box = GetComponent(BoxCollider);
 		if(Chick_die == false
+				&& (obj.name == "BackGround_Bottom" )
+				&& (obj.position.y+obj.size.y/2) >= (chick.position.y-chick.size.y/2))
+		{
+			//landWater = owner.collisionObject;
+	    	// show the Cow dead left object 
+			chick.frameIndex = 2;
+			// set the die flag
+			Chick_die = true;
+			chick.collidable = false; // no need enter onStay any more
+	    }
+		else if(Chick_die == false
 	     	&& (obj.name == "Boat0" || obj.name == "Boat1") 
 	 		&& (obj.position.x+obj.size.x/2) >= (chick.position.x+chick.size.x/2)
 	 		&& (obj.position.x-obj.size.x/2) <= (chick.position.x-chick.size.x/2)
-	 		&& (obj.position.y+obj.size.y/2) >= (chick.position.y+chick.size.y/6))
+	 		&& (obj.position.y+obj.size.y/2) >= (chick.position.y-chick.size.y/6))
 	    {
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
@@ -142,15 +136,6 @@ public class Chick : MonoBehaviour {
 	    	chick.rigidbody.velocity = new Vector3(0, 0, 0);
 	    	chick.collidable = false; // no need enter onStay any more
 	    } 
-	//    else if(collide with Water){
-	//    	// show the Cow dead left object 
-	//		chick.frameIndex = 0;
-	//		//Cow.depth += 0.5; // on back 
-	//		// set the die flag
-	//		Chick_die = true;
-	//		chick.depth = 0.5; // on back  
-	//		chick.collidable = false; // no need enter onStay any more
-	//    }
 	}
 	//function OnCollision(owner:OTObject)
 	//{

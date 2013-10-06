@@ -6,7 +6,7 @@ public class Cow : MonoBehaviour {
 	
 	OTSprite cow;  
 	bool Cow_die = false;
-	OTObject landWater;
+	//OTObject landWater;
 	OTObject landBoat;  
 	float landBoatPosX;  
 	Vector3 startPos;
@@ -14,7 +14,7 @@ public class Cow : MonoBehaviour {
 	Vector3 mouseDownPosition;
 	// Use this for initialization
 	void Start () {
-		landWater = null;
+		//landWater = null;
 		landBoat = null;
 		landBoatPosX = 0f;
 		
@@ -63,19 +63,8 @@ public class Cow : MonoBehaviour {
 			 Destroy(cow.gameObject);
 			}
 			return;
-		} else if (landWater != null) { 
-			 // if it lands in water, let it die
-			 cow.frameIndex = 0;
-			 // set the die flag
-			 Cow_die = true;
-			 //cow.depth = 0.5; // on back
-			 if (cow.outOfView)
-			{
-			 // Destroy the object
-			 Destroy(cow.gameObject);
-			}  
-			return;
 		}
+
 		
 		//This one is global detection
 		//if (Input.GetMouseButtonDown(0))
@@ -87,50 +76,55 @@ public class Cow : MonoBehaviour {
 		//{
 	   	//	OT.print("Left Button up On at " + Input.mousePosition.x + "," + Input.mousePosition.y);
 		//}
-		
-		// respond to the left arrow
-		if(Input.GetKey(KeyCode.LeftArrow) && Cow_die == false)
+		if(Cow_die == false)
 		{
-			cow.frameIndex = 2;
-			startPos.x += -30 * Time.deltaTime;
-			audio.Play();
-		}
-		// respond to the right arrow
-		else if(Input.GetKey(KeyCode.RightArrow) && Cow_die == false)
-		{
-			cow.frameIndex = 3;
-			startPos.x += 30 * Time.deltaTime;
-			audio.Play();			
-		}
-		// default down picture
-		else if(Cow_die == false)
-		{
-			cow.frameIndex = 1;
-		}
-		// Reset the position according to interaction
-		if (Cow_die == false){
+			// respond to the left arrow
+			if(Input.GetKey(KeyCode.LeftArrow))
+			{
+				cow.frameIndex = 2;
+				startPos.x += -30 * Time.deltaTime;
+				audio.Play();
+			}
+			// respond to the right arrow
+			else if(Input.GetKey(KeyCode.RightArrow))
+			{
+				cow.frameIndex = 3;
+				startPos.x += 30 * Time.deltaTime;
+				audio.Play();			
+			}
+			// default down picture
+			else
+			{
+				cow.frameIndex = 1;
+			}
+			// Reset the position according to interaction
+			
 			tmpX = startPos.x+(1f/((0.012f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
 			cow.position = new Vector2(tmpX,tmpY);
-		}
 		
-	
-		// determine the border of the object's movement
-		// the middle x position is: 
-		if(cow.position.x  < - (Screen.width - cow.size.x)/2)
+			// determine the border of the object's movement
+			// the middle x position is: 
+			if(cow.position.x  < - (Screen.width - cow.size.x)/2)
+			{
+				// show the Cow dead object 
+				cow.frameIndex = 0;
+				// set the die flag
+				Cow_die = true;
+			}
+			else if(cow.position.x >  (Screen.width- cow.size.x)/2)
+			{
+				// show the Cow dead right object 
+				cow.frameIndex = 4;
+				//cow.depth += 0.5; // on back 
+				// set the die flag
+				Cow_die = true;
+			} 
+		} // end if (cow_die == false)
+		else //Cow_die == true
 		{
-			// show the Cow dead object 
-			cow.frameIndex = 0;
-			// set the die flag
-			Cow_die = true;
+			//cow.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
 		}
-		else if(cow.position.x >  (Screen.width- cow.size.x)/2)
-		{
-			// show the Cow dead right object 
-			cow.frameIndex = 4;
-			//cow.depth += 0.5; // on back 
-			// set the die flag
-			Cow_die = true;
-		} 
+
 		if (cow.outOfView)
 		{
 		 	// Destroy the object
@@ -157,16 +151,18 @@ public class Cow : MonoBehaviour {
 	    	//cow.depth = 0.5; // on back 
 	    	cow.rigidbody.velocity = new Vector3(0, 0, 0);
 	    	cow.collidable = false; // no need enter onStay any more
-	    } 
-	//    else if(collide with Water){
-	//    	// show the Cow dead left object 
-	//		cow.frameIndex = 0;
-	//		//Cow.depth += 0.5; // on back 
-	//		// set the die flag
-	//		cow_die = true;
-	//		cow.depth = 0.5; // on back  
-	//		cow.collidable = false; // no need enter onStay any more
-	//    }
+	    } else if(Cow_die == false
+				&& (obj.name == "BackGround_Bottom" )
+				&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/2))
+			{
+				//landWater = owner.collisionObject;
+		    	// show the Cow dead left object 
+				cow.frameIndex = 0;
+				// set the die flag
+				Cow_die = true;
+				cow.collidable = false; // no need enter onStay any more
+		    }
+
 	}
 	//Move to event to main window so that mouse does not need click on object percisely
 	//This one is local detection. set register input to true in designer
