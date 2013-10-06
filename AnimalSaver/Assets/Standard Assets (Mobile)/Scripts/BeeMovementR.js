@@ -1,22 +1,28 @@
 ﻿#pragma strict
 
-var level : int;
+var level =1;
 var speedFactor:float;
 var start = 0 ;
 var elapsed = 0;
-var countdown:int;
+var bee:OTSprite;  
+var origin : Vector3;
+
 function Start () {
 	speedFactor=0.1;
 	start = Time.time;
-	countdown=15;
+		bee.InitCallBacks(this);
+	bee.position.x=0;
+	for(var i=1;i<level;i++)
+	{
+			speedFactor = speedFactor*1.5;
+	}	
+	origin=bee.position;
 }
 
 function Update() {
 		// Move the object to the right relative to the camera 1 unit/second.
 		elapsed = Time.time - start;
-		if(elapsed==countdown)
-		{
-			audio.Play();
-			transform.Translate(Vector3.back * (0.5), Camera.main.transform);
-		}
+		bee = GetComponent(OTSprite);
+		bee.position.x++;
+
 }

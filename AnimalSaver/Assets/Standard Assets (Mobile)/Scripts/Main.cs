@@ -10,7 +10,7 @@ public class Main : MonoBehaviour {
 	static int boatSpeed = 2;
 	static int boatNum = 2;
 	static string[] animals = new string[] {"Cow", "Chick"};
-	static string[] Obstacles = new string[] {"Maneatingplant_ani","Bee_ani"};
+	static string[] Obstacles = new string[] {"Bee_left","Bee_right","Maneater_plant"};
 	Vector3 mousePosition;
 	Vector3 mouseUpPosition;
 	static string windDirection = "none";
@@ -111,11 +111,11 @@ public class Main : MonoBehaviour {
 			OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
 			t = 0;
 		}
-
+		int randomNumberObs = random.Next(0, 3);
 		if(t2 > 3f)
 		{
 			// Create Obstacle every 3 seconds
-			OTSprite obj2 = OT.CreateObject(Obstacles[1]).GetComponent<OTSprite>();
+			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 			
 			t2 = 0;
 			boatSpeed = random.Next(0,5);

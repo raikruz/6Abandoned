@@ -1,40 +1,43 @@
 ﻿#pragma strict
 
-var bumpMap : Texture;
-var bumpMap2 : Texture;
-var bumpMap3 : Texture;
-var bumpMap4 : Texture;
-var bumpMap5 : Texture;
-var bumpMap6 : Texture;
-var image : int;
+
 var start= 0;
 var elapsed=0;
+var flyTrapper:OTSprite;  
+
 function Start () {
 	start=Time.time;
 }
 
 function Update () {
-	elapsed= Time.time -start;
+	elapsed=Time.time-start;
+	flyTrapper = GetComponent(OTSprite);
 	if(elapsed==0)
 	{
-		 gameObject.guiTexture.texture = bumpMap; 
+		 audio.Play();
+		 flyTrapper.frameIndex=0; 
 	}
 	else if(elapsed==2)
 	{	
-		 gameObject.guiTexture.texture = bumpMap2; 
+		 audio.Play();
+		 flyTrapper.frameIndex=1; 
 	}else if(elapsed==4)
 	{	
-		 gameObject.guiTexture.texture = bumpMap3; 
+		 audio.Play();
+		 flyTrapper.frameIndex=2; 
 	}
 	else if(elapsed==6)
 	{	
-		 gameObject.guiTexture.texture = bumpMap4; 
+		 audio.Play();
+		 flyTrapper.frameIndex=3; 
 	}else if(elapsed==8)
 	{	
-		 gameObject.guiTexture.texture = bumpMap5; 
+		 audio.Play();
+		 flyTrapper.frameIndex=4; 
 	}	else if(elapsed==12)
 	{	
-		 gameObject.guiTexture.texture = bumpMap6; 
+		 audio.Play();
+		 flyTrapper.frameIndex=5; 
 
 	}
 }
