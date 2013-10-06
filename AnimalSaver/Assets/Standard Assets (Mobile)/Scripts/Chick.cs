@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class Chick : MonoBehaviour {
 	
 	OTSprite chick;  
@@ -85,15 +86,15 @@ public class Chick : MonoBehaviour {
 		if(Input.GetKey(KeyCode.LeftArrow) && Chick_die == false)
 		{
 			chick.frameIndex = 1;
-			//transform.Translate(-30 * Time.deltaTime, 0, 0);
 			startPos.x += -30 * Time.deltaTime;
+			audio.Play();
 		}
 		// respond to the right arrow
 		else if(Input.GetKey(KeyCode.RightArrow) && Chick_die == false)
 		{
 			chick.frameIndex = 3;
-			//transform.Translate(30 * Time.deltaTime, 0, 0);
 			startPos.x += 30 * Time.deltaTime;
+			audio.Play();
 		}
 		// default down picture
 		else if(Chick_die == false)

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(AudioSource))]
 public class Cow : MonoBehaviour {
 	
 	OTSprite cow;  
@@ -91,15 +92,15 @@ public class Cow : MonoBehaviour {
 		if(Input.GetKey(KeyCode.LeftArrow) && Cow_die == false)
 		{
 			cow.frameIndex = 2;
-			//transform.Translate(-30 * Time.deltaTime, 0, 0);
 			startPos.x += -30 * Time.deltaTime;
+			audio.Play();
 		}
 		// respond to the right arrow
 		else if(Input.GetKey(KeyCode.RightArrow) && Cow_die == false)
 		{
 			cow.frameIndex = 3;
-			//transform.Translate(30 * Time.deltaTime, 0, 0);
 			startPos.x += 30 * Time.deltaTime;
+			audio.Play();			
 		}
 		// default down picture
 		else if(Cow_die == false)
