@@ -134,7 +134,7 @@ public class Cow : MonoBehaviour {
 		 	// Destroy the object
 		 	Destroy(cow.gameObject);
 		 	// Test Game Over function
-			Application.LoadLevel(2);
+			//Application.LoadLevel(2);
 	
 		}
 	}
@@ -148,7 +148,7 @@ public class Cow : MonoBehaviour {
 	     	&& (obj.name == "Boat0" || obj.name == "Boat1") 
 	 		&& (obj.position.x+obj.size.x/2) >= (cow.position.x+cow.size.x/2)
 	 		&& (obj.position.x-obj.size.x/2) <= (cow.position.x-cow.size.x/2)
-	 		&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/6))
+	 		&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/3))
 	    {
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
