@@ -110,7 +110,8 @@ public class Chick : MonoBehaviour {
 			chick.frameIndex = 2;
 
 		
-		if (tWind > Main.windDuration || Main.WindDirection == "none")
+		//if (tWind > Main.windDuration || Main.WindDirection == "none")
+		if (bWindAffected && tWind > Main.windDuration)
 		{
 			bWindAffected = false;
 			tWind = 0;

@@ -75,6 +75,7 @@ public class Cow : MonoBehaviour {
 		{
 			if (bWindAffected)
 			{
+				OT.print(Main.WindDirection);
 				// respond to the left arrow
 				if(Main.WindDirection == "left")
 				{
@@ -107,8 +108,10 @@ public class Cow : MonoBehaviour {
 		}
 		else
 			cow.frameIndex = 0;
-		
-		if (tWind > Main.windDuration || Main.WindDirection == "none")
+	
+			
+		//if (tWind > Main.windDuration || Main.WindDirection == "none")
+		if (bWindAffected && tWind > Main.windDuration)
 		{
 			bWindAffected = false;
 			tWind = 0;
