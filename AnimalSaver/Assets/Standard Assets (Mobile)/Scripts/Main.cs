@@ -25,9 +25,7 @@ public class Main : MonoBehaviour {
 	public static bool gameOver;
 	// Use this for initialization
 	void Start () {
-		
-		ZLog.Log ("SampleCodeUse Start() method, Screen.height: " + Screen.height + " Screen.width: " + Screen.width);
-		
+
 		animalSaved = 0;
 		gameOver = false;
 		// resize filled sprites to match screen size
@@ -38,8 +36,9 @@ public class Main : MonoBehaviour {
 		for (int i = 0; i < boatNum; ++i)
 		{
 			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
-			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y) / 2);	
 			boat.name = "Boat" + i.ToString();
+			boat.size = new Vector2(Screen.width / 2.0f, Screen.height / 5.0f);
+			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);			
 		}
 		
 //		for (int i = 0; i < Screen.width;)
@@ -73,11 +72,11 @@ public class Main : MonoBehaviour {
             	sprite.size = new Vector2(Screen.width, Screen.height);
 				break;
 			case 1:  // bottom
-				sprite.size = new Vector2(Screen.width, Screen.height * 150f/1280f);
-				sprite.position = new Vector2(0, -Screen.height*565f/1280f);
+				sprite.size = new Vector2(Screen.width, Screen.height / 6.0f);
+				sprite.position = new Vector2(0, -(Screen.height - sprite.size.y) / 2);
 				break;
 			case 2:
-				sprite.size = new Vector2(Screen.width, sprite.size.y);
+				sprite.size = new Vector2(Screen.width, Screen.height / 10);
 				sprite.position = new Vector2(0, (Screen.height - sprite.size.y) / 2);
 				break;
 			default:
@@ -136,7 +135,7 @@ public class Main : MonoBehaviour {
 			OTSprite boat = OT.ObjectByName(boatName).GetComponent<OTSprite>();
 			boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
 			if (boat.position.x < -(Screen.width + boat.size.x) / 2)
-				boat.position = new Vector2((Screen.width + boat.size.x) / 2, -(Screen.height - boat.size.y) / 2);
+				boat.position = new Vector2((Screen.width + boat.size.x) / 2, -(Screen.height - boat.size.y * 2) / 2);
 		}
 		
 		UpdateWindDirection();

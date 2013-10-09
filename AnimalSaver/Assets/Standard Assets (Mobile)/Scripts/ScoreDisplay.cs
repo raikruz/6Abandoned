@@ -4,8 +4,9 @@ using System.Collections;
 public class ScoreDisplay : MonoBehaviour {
 
 	// Use this for initialization
+	OTSprite sprite;
 	void Start () {
-	
+		sprite = GetComponent<OTSprite>();
 	}
 	
 	// Update is called once per frame
@@ -18,7 +19,7 @@ public class ScoreDisplay : MonoBehaviour {
 		style.alignment = GUI.skin.label.alignment;
 		style.alignment = TextAnchor.MiddleRight;
 		style.normal.textColor = Color.yellow;
-		OTSprite sprite = GetComponent<OTSprite>();
-		GUI.Label (new Rect (0, 10, sprite.size.x - 8, 20), Main.animalSaved.ToString(), style);	
+		style.fontSize = (int)(sprite.size.y / 4);
+		GUI.Label (new Rect (0, 0, sprite.size.x * 0.97f, sprite.size.y * 0.8f), Main.animalSaved.ToString(), style);	
 	}
 }
