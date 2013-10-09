@@ -25,6 +25,9 @@ public class Main : MonoBehaviour {
 	public static bool gameOver;
 	// Use this for initialization
 	void Start () {
+		
+		ZLog.Log ("SampleCodeUse Start() method, Screen.height: " + Screen.height + " Screen.width: " + Screen.width);
+		
 		animalSaved = 0;
 		gameOver = false;
 		// resize filled sprites to match screen size
@@ -141,17 +144,58 @@ public class Main : MonoBehaviour {
 		DrawWind();	
 	}
 	
-	void UpdateWindDirection()
+	bool IsWindBegin(ref Vector2 pos)
 	{
+		foreach(Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Began)
+			{
+				pos = Camera.main.ScreenToWorldPoint(touch.position);
+				return true;
+			}
+		}
+		
 		if (Input.GetMouseButtonDown(0))
 		{
+			pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			return true;
+		}
+		
+		return false;	
+	}
+	
+	bool IsWindEnd(ref Vector2 pos)
+	{
+		foreach(Touch touch in Input.touches)
+		{
+			if (touch.phase == TouchPhase.Ended)
+			{
+				pos = Camera.main.ScreenToWorldPoint(touch.position);
+				return true;
+			}
+		}
+		
+		if (Input.GetMouseButtonUp(0))
+		{
+			pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			return true;
+		}
+		
+		return false;	
+	}
+	
+	void UpdateWindDirection()
+	{
+		Vector2 tmpPos = new Vector2();
+		if (IsWindBegin(ref tmpPos))
+		{
 			windDirection = "none";
-			mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mousePosition = tmpPos;
 			//OT.print(mousePosition.x + "," + mousePosition.y);
 		}
-		else if (Input.GetMouseButtonUp(0))
+		else if (IsWindEnd(ref tmpPos))
 		{
-			mouseUpPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			mouseUpPosition = tmpPos;
 			//OT.print(mouseUpPosition.x + "," + mouseUpPosition.y);
 			float xPos = mouseUpPosition.x - mousePosition.x;
 			float yPos = mouseUpPosition.y - mousePosition.y;
