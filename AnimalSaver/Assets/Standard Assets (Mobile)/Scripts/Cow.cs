@@ -75,7 +75,7 @@ public class Cow : MonoBehaviour {
 		{
 			if (bWindAffected)
 			{
-				OT.print(Main.WindDirection);
+				//OT.print(Main.WindDirection);
 				// respond to the left arrow
 				if(Main.WindDirection == "left")
 				{
@@ -107,7 +107,10 @@ public class Cow : MonoBehaviour {
 			}
 		}
 		else
+		{
 			cow.frameIndex = 0;
+			Main.gameOver = true;
+		}
 	
 			
 		//if (tWind > Main.windDuration || Main.WindDirection == "none")
@@ -144,6 +147,9 @@ public class Cow : MonoBehaviour {
 
 	public void OnStay(OTObject owner)
 	{
+		if (!cow.collidable)
+			return;
+		
 		OTObject obj = owner.collisionObject;  
 		//var box:BoxCollider= null;
 		//	box = GetComponent(BoxCollider);
@@ -158,6 +164,8 @@ public class Cow : MonoBehaviour {
 	    	//cow.depth = 0.5; // on back 
 	    	cow.rigidbody.velocity = new Vector3(0, 0, 0);
 	    	cow.collidable = false; // no need enter onStay any more
+			
+			Main.animalSaved++;
 	    } else if(Cow_die == false
 				&& (obj.name == "BackGround_Bottom" )
 				&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/2))
@@ -175,7 +183,7 @@ public class Cow : MonoBehaviour {
 	//This one is local detection. set register input to true in designer
 	void OnInput(OTObject owner)
 	{
-		OT.print("OnInput " + owner.name);
+		//OT.print("OnInput " + owner.name);
 		bWindAffected = true;
 	}
 	

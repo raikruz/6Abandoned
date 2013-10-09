@@ -21,8 +21,12 @@ public class Main : MonoBehaviour {
 	float t2;
 	float tWind = 0;
 	public static float windDuration = 2.0f;
+	public static uint animalSaved;
+	public static bool gameOver;
 	// Use this for initialization
 	void Start () {
+		animalSaved = 0;
+		gameOver = false;
 		// resize filled sprites to match screen size
         Resize("BackGround", 0);
 		Resize("BackGround_Bottom",1);

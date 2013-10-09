@@ -107,7 +107,10 @@ public class Chick : MonoBehaviour {
 			}
 		}
 		else 
+		{
 			chick.frameIndex = 2;
+			Main.gameOver = true;
+		}
 
 		
 		//if (tWind > Main.windDuration || Main.WindDirection == "none")
@@ -138,6 +141,9 @@ public class Chick : MonoBehaviour {
 
 	public void OnStay(OTObject owner)
 	{
+		if(!chick.collidable)
+			return;
+		
 	    OTObject obj = owner.collisionObject;  
 		if(Chick_die == false
 				&& (obj.name == "BackGround_Bottom" )
@@ -161,12 +167,14 @@ public class Chick : MonoBehaviour {
 	    	//chick.depth = 0.5; // on back 
 	    	chick.rigidbody.velocity = new Vector3(0, 0, 0);
 	    	chick.collidable = false; // no need enter onStay any more
+			
+			Main.animalSaved++;
 	    } 
 	}
 	
 	void OnInput(OTObject owner)
 	{
-		OT.print("OnInput " + owner.name);
+		//OT.print("OnInput " + owner.name);
 		bWindAffected = true;
 	}
 	
