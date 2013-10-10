@@ -17,8 +17,7 @@ function OnMouseExit()
 // mouse down function
 function OnMouseDown()
 {
-	// play sound
-	audio.Play();
-	// exit the game
-	Application.Quit();
+	// load application 1
+	//Application.loadLevel(0);
+	Application.LoadLevel(0);
 }

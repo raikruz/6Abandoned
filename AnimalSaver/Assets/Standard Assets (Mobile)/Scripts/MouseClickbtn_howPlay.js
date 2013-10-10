@@ -19,6 +19,6 @@ function OnMouseDown()
 {
 	// play sound
 	audio.Play();
-	// exit the game
-	Application.Quit();
+	//load the application level 1
+	Application.LoadLevel(3);
 }
