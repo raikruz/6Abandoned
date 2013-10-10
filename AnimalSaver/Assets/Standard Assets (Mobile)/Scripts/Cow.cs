@@ -24,6 +24,7 @@ public class Cow : MonoBehaviour {
 		cow = GetComponent<OTSprite>();
 		cow.InitCallBacks(this);
 		cow.onInput = OnInput;	
+		cow.onEnter = OnCollided;
 		cow.frameIndex = 1;
 		// initialize variables
 		// initialize the velocity and start position
@@ -145,19 +146,16 @@ public class Cow : MonoBehaviour {
 		}
 	}
 
-	public void OnStay(OTObject owner)
+	public void OnCollided(OTObject owner)
 	{
-		if (!cow.collidable)
-			return;
-		
 		OTObject obj = owner.collisionObject;  
 		//var box:BoxCollider= null;
 		//	box = GetComponent(BoxCollider);
 		if(Cow_die == false
-	     	&& (obj.name == "Boat0" || obj.name == "Boat1") 
-	 		&& (obj.position.x+obj.size.x/2) >= (cow.position.x+cow.size.x/2)
-	 		&& (obj.position.x-obj.size.x/2) <= (cow.position.x-cow.size.x/2)
-	 		&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/3))
+	     	&& (obj.name == "Boat0" || obj.name == "Boat1")) 
+	 		//&& (obj.position.x+obj.size.x/2) >= (cow.position.x+cow.size.x/2)
+	 		//&& (obj.position.x-obj.size.x/2) <= (cow.position.x-cow.size.x/2)
+	 		//&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/3))
 	    {
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
@@ -167,8 +165,8 @@ public class Cow : MonoBehaviour {
 			
 			Main.animalSaved++;
 	    } else if(Cow_die == false
-				&& (obj.name == "BackGround_Bottom" )
-				&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/2))
+				&& (obj.name == "BackGround_Bottom" ))
+				//&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/2))
 			{
 				//landWater = owner.collisionObject;
 		    	// show the Cow dead left object 

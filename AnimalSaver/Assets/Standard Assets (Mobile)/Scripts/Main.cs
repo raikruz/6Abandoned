@@ -37,7 +37,7 @@ public class Main : MonoBehaviour {
 		{
 			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 			boat.name = "Boat" + i.ToString();
-			boat.size = new Vector2(Screen.width / 2.0f, Screen.height / 5.0f);
+			boat.size = new Vector2(Screen.width / 1.5f, Screen.width / 1.5f * 124 /357);
 			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);			
 		}
 		
