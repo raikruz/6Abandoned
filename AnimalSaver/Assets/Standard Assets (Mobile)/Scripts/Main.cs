@@ -124,7 +124,22 @@ public class Main : MonoBehaviour {
 		{
 			// Create Obstacle every 3 seconds
 			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
-			
+			if(randomNumberObs==0){
+				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
+				float positionY= random.Next(0,Screen.height);
+				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
+			}
+			if(randomNumberObs==1){
+				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
+				float positionY= random.Next(0,Screen.height);
+				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
+			}
+			if(randomNumberObs==2){
+				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 205 /254);
+				float positionX= random.Next(0,Screen.width);
+				float positionY= random.Next(0,Screen.height);
+				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
+			}
 			t2 = 0;
 			boatSpeed = random.Next(0,5);
 		}

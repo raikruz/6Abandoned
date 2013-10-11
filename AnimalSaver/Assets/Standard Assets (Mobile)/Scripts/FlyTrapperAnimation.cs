@@ -14,34 +14,35 @@ public class FlyTrapperAnimation : MonoBehaviour {
 	void Update () {
 		elapsed=Time.time-start;
 		flyTrapper = GetComponent<OTSprite>();
-		if(elapsed<2)
+		if(elapsed<1)
 		{
 			 audio.Play();
 			 flyTrapper.frameIndex=0; 
 		}
-		else if(elapsed<4)
+		else if(elapsed<2)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=1; 
-		}else if(elapsed<6)
+		}else if(elapsed<3)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=2; 
 		}
-		else if(elapsed<8)
+		else if(elapsed<4)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=3; 
-		}else if(elapsed<12)
+		}else if(elapsed<5)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=4; 
-		}	else if(elapsed<14)
+		}	else if(elapsed<6)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=5; 
+			flyTrapper.collidable=true;
 	
-		} else if(elapsed<16)
+		} else if(elapsed<10)
 			{	
 			 audio.Play();
 			 flyTrapper.frameIndex=6; 
