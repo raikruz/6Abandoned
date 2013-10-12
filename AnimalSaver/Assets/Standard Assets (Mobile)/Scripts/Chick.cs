@@ -12,6 +12,7 @@ public class Chick : MonoBehaviour {
 	float k;
 	bool bWindAffected;
 	float tWind;
+	float deadTime;
 	// Use this for initialization
 	void Start () {
 		landBoat = null;
@@ -49,6 +50,7 @@ public class Chick : MonoBehaviour {
 		
 		bWindAffected = false;
 		tWind = 0;
+		deadTime = 0f;
 	}
 	
 	// Update is called once per frame
@@ -112,6 +114,7 @@ public class Chick : MonoBehaviour {
 		{
 			chick.frameIndex = 2;
 			Main.gameOver = true;
+			chick.rigidbody.velocity = new Vector3(0, chick.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
 
 		
@@ -157,6 +160,7 @@ public class Chick : MonoBehaviour {
 				&& (obj.name == "BackGround_Bottom"  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 		{
+			deadTime = Time.time;
 			// show the Cow dead left object 
 			chick.frameIndex = 2;
 			// set the die flag

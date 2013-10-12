@@ -14,6 +14,7 @@ public class Cow : MonoBehaviour {
 	Vector3 mouseDownPosition;
 	bool bWindAffected;
 	float tWind;
+	float deadTime;
 	// Use this for initialization
 	void Start () {
 		//landWater = null;
@@ -52,6 +53,7 @@ public class Cow : MonoBehaviour {
 		
 		bWindAffected = false;
 		tWind = 0;
+		deadTime = 0f;
 	}
 	
 	// Update is called once per frame
@@ -135,6 +137,7 @@ public class Cow : MonoBehaviour {
 		else //Cow_die == true
 		{
 			//cow.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
+			cow.rigidbody.velocity = new Vector3(0, cow.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
 
 		if (cow.outOfView)
@@ -164,6 +167,7 @@ public class Cow : MonoBehaviour {
 				&& (obj.name == "BackGround_Bottom"  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 			{
+				deadTime = Time.time;
 		    	// show the Cow dead left object 
 				cow.frameIndex = 0;
 				// set the die flag
