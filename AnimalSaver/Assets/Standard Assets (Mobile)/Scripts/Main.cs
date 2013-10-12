@@ -72,8 +72,8 @@ public class Main : MonoBehaviour {
             	sprite.size = new Vector2(Screen.width, Screen.height);
 				break;
 			case 1:  // bottom
-				sprite.size = new Vector2(Screen.width, Screen.height / 6.0f);
-				sprite.position = new Vector2(0, -(Screen.height - sprite.size.y) / 2);
+				sprite.size = new Vector2(Screen.width, Screen.height *150f/ 1280f);
+				sprite.position = new Vector2(0, -Screen.height*565f/1280f);
 				break;
 			case 2:
 				sprite.size = new Vector2(Screen.width, Screen.height / 10);
@@ -104,6 +104,10 @@ public class Main : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if (Input.GetKeyDown(KeyCode.Escape)) 
+		{ 
+			Application.LoadLevel(0); // Back to Main menu
+		}
 		if(!initialized)
 		{
 			Initialize();

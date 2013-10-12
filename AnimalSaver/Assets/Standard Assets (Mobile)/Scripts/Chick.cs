@@ -21,12 +21,14 @@ public class Chick : MonoBehaviour {
 		chick = GetComponent<OTSprite>();
 		chick.InitCallBacks(this);
 		chick.onInput = OnInput;
+		chick.onEnter = OnCollided;
 		chick.frameIndex = 0;
 		// initialize variables
 		// initialize the velocity and start position
 	 	chick.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
 		chick.rigidbody.velocity = new Vector3(0, -15,0);
+		chick.size = new Vector2(Screen.width *0.0767f, Screen.width *.0767f*1.233f);
 		
 	 	float randomValue1 = Random.value;
 	 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
@@ -139,37 +141,28 @@ public class Chick : MonoBehaviour {
 		}
 	}
 
-	public void OnStay(OTObject owner)
+	public void OnCollided(OTObject owner)
 	{
-		if(!chick.collidable)
-			return;
-		
 	    OTObject obj = owner.collisionObject;  
-		if(Chick_die == false
-				&& (obj.name == "BackGround_Bottom" )
-				&& (obj.position.y+obj.size.y/2) >= (chick.position.y-chick.size.y/2))
-		{
-			//landWater = owner.collisionObject;
-	    	// show the Cow dead left object 
-			chick.frameIndex = 2;
-			// set the die flag
-			Chick_die = true;
-			chick.collidable = false; // no need enter onStay any more
-	    }
-		else if(Chick_die == false
-	     	&& (obj.name == "Boat0" || obj.name == "Boat1") 
-	 		&& (obj.position.x+obj.size.x/2) >= (chick.position.x+chick.size.x/2)
-	 		&& (obj.position.x-obj.size.x/2) <= (chick.position.x-chick.size.x/2)
-	 		&& (obj.position.y+obj.size.y/2) >= (chick.position.y-chick.size.y/6))
+		if(Chick_die == false && (obj.name == "Boat0" || obj.name == "Boat1"))
 	    {
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
-	    	//chick.depth = 0.5; // on back 
+	    	chick.frameIndex = 0;
 	    	chick.rigidbody.velocity = new Vector3(0, 0, 0);
-	    	chick.collidable = false; // no need enter onStay any more
+	    	chick.collidable = false; // no need enter OnCollided any more
 			
 			Main.animalSaved++;
-	    } 
+	    } else if(Chick_die == false && landBoat == null
+				&& (obj.name == "BackGround_Bottom"  ||  obj.name.StartsWith("Bee_left")
+			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
+		{
+			// show the Cow dead left object 
+			chick.frameIndex = 2;
+			// set the die flag
+			Chick_die = true;
+			chick.collidable = false; // no need enter OnCollided any more
+	    }
 	}
 	
 	void OnInput(OTObject owner)

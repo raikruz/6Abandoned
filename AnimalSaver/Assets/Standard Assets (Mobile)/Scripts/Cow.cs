@@ -31,6 +31,7 @@ public class Cow : MonoBehaviour {
 	 	cow.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
 		cow.rigidbody.velocity = new Vector3(0, -25,0);
+		cow.size = new Vector2(Screen.width *0.17f, Screen.width *0.17f*1.333f);
 		
 	 	float randomValue1 = Random.value;
 	 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
@@ -149,26 +150,20 @@ public class Cow : MonoBehaviour {
 	public void OnCollided(OTObject owner)
 	{
 		OTObject obj = owner.collisionObject;  
-		//var box:BoxCollider= null;
-		//	box = GetComponent(BoxCollider);
 		if(Cow_die == false
 	     	&& (obj.name == "Boat0" || obj.name == "Boat1")) 
-	 		//&& (obj.position.x+obj.size.x/2) >= (cow.position.x+cow.size.x/2)
-	 		//&& (obj.position.x-obj.size.x/2) <= (cow.position.x-cow.size.x/2)
-	 		//&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/3))
 	    {
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
-	    	//cow.depth = 0.5; // on back 
+	    	cow.frameIndex = 1;
 	    	cow.rigidbody.velocity = new Vector3(0, 0, 0);
-	    	cow.collidable = false; // no need enter onStay any more
+	    	cow.collidable = false; // no need enter OnCollided any more
 			
 			Main.animalSaved++;
-	    } else if(Cow_die == false
-				&& (obj.name == "BackGround_Bottom" ))
-				//&& (obj.position.y+obj.size.y/2) >= (cow.position.y-cow.size.y/2))
+	    } else if(Cow_die == false && landBoat == null
+				&& (obj.name == "BackGround_Bottom"  ||  obj.name.StartsWith("Bee_left")
+			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 			{
-				//landWater = owner.collisionObject;
 		    	// show the Cow dead left object 
 				cow.frameIndex = 0;
 				// set the die flag
