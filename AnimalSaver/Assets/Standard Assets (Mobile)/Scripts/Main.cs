@@ -9,6 +9,8 @@ public class Main : MonoBehaviour {
 	System.Random random = new System.Random();
 	static int boatSpeed = 2;
 	static int boatNum = 2;
+	static int waterSpeed = 1;
+	static int waterNum = 2;
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Bee_left","Bee_right","Maneater_plant"};
 	Vector3 mousePosition;
@@ -30,16 +32,32 @@ public class Main : MonoBehaviour {
 		gameOver = false;
 		// resize filled sprites to match screen size
         Resize("BackGround", 0);
-		Resize("BackGround_Bottom",1);
+		Resize("BackGround_Bottom_0",1);
+		Resize("BackGround_BottomWatertop_0", 3);
+		Resize("BackGround_Bottom_1",1);
+		Resize("BackGround_BottomWatertop_1", 3);
+		Resize("BackGround_BottomgrassBorder",4);
+		Resize("BackGround_Bottomgrass",4);
+		OTObject Bottom = OT.ObjectByName("BackGround_Bottom_0");
+		OTObject grass = OT.ObjectByName("BackGround_Bottomgrass");
+		grass.position = new Vector2(grass.position.x,-(Screen.height-Bottom.size.y - grass.size.y)/2);
+			
 		Resize("Score", 2);
         // set initialized notifier to true so we only initialize once.
 		for (int i = 0; i < boatNum; ++i)
 		{
 			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 			boat.name = "Boat" + i.ToString();
-			boat.size = new Vector2(Screen.width / 1.5f, Screen.width / 1.5f * 124 /357);
+			boat.size = new Vector2(Screen.width / 1.5f, Screen.height / 1.5f * 124 /357);
 			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);			
 		}
+		
+		// water should move.
+
+			OTObject Waterbottom = OT.ObjectByName("BackGround_Bottom_1");
+			Waterbottom.position = new Vector2(Waterbottom.position.x+ Waterbottom.size.x,Waterbottom.position.y);
+			OTObject Watertop = OT.ObjectByName("BackGround_BottomWatertop_1");
+			Watertop.position = new Vector2(Watertop.size.x + Watertop.position.x, Watertop.position.y);
 		
 //		for (int i = 0; i < Screen.width;)
 //		{
@@ -71,11 +89,25 @@ public class Main : MonoBehaviour {
 			case 0: // background
             	sprite.size = new Vector2(Screen.width, Screen.height);
 				break;
-			case 1:  // bottom
-				sprite.size = new Vector2(Screen.width, Screen.height *150f/ 1280f);
-				sprite.position = new Vector2(0, -Screen.height*565f/1280f);
+			case 1:  // bottom water should be initialized before Top ater
+				sprite.size = new Vector2(Screen.width * 2 , Screen.height * 152f /1280f);
+				sprite.position = new Vector2(0, -(Screen.height - sprite.size.y) / 2);
 				break;
-			case 2:
+			case 3: // top water
+			{
+				sprite.size = new Vector2(Screen.width* 2, Screen.height* 54f/1280 );//1600f
+				OTObject Bottomwater = OT.ObjectByName("BackGround_Bottom_0");
+				if(Bottomwater != null) {
+					float tmpy = Bottomwater.position.y + Bottomwater.size.y/2 + sprite.size.y/2 -2;
+					sprite.position = new Vector2(0, tmpy);
+				}
+				break;
+			}
+			case 4: // grass fixed at the bottom
+				sprite.size = new Vector2(Screen.width, Screen.height *82f/800f);
+				sprite.position = new Vector2(0, -(Screen.height - sprite.size.y) / 2);
+				break;
+			case 2: // Top score pic
 				sprite.size = new Vector2(Screen.width, Screen.height / 10);
 				sprite.position = new Vector2(0, (Screen.height - sprite.size.y) / 2);
 				break;
@@ -108,6 +140,7 @@ public class Main : MonoBehaviour {
 		{ 
 			Application.LoadLevel(0); // Back to Main menu
 		}
+
 		if(!initialized)
 		{
 			Initialize();
@@ -144,6 +177,7 @@ public class Main : MonoBehaviour {
 				float positionY= random.Next(0,Screen.height);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
 			}
+
 			t2 = 0;
 			boatSpeed = random.Next(0,5);
 		}
@@ -155,6 +189,22 @@ public class Main : MonoBehaviour {
 			boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
 			if (boat.position.x < -(Screen.width + boat.size.x) / 2)
 				boat.position = new Vector2((Screen.width + boat.size.x) / 2, -(Screen.height - boat.size.y * 2) / 2);
+		}
+		for (int i = 0; i < waterNum; ++i)
+		{
+			string waterName = "BackGround_Bottom_" + i.ToString();
+			OTObject water = OT.ObjectByName(waterName).GetComponent<OTSprite>();
+			water.position = new Vector2(water.position.x - waterSpeed, water.position.y);
+			if (water.position.x < -(Screen.width + water.size.x) / 2)
+				water.position = new Vector2((Screen.width + water.size.x) / 2, water.position.y);
+		}
+		for (int i = 0; i < waterNum; ++i)
+		{
+			string waterName = "BackGround_BottomWatertop_" + i.ToString();
+			OTObject water = OT.ObjectByName(waterName).GetComponent<OTSprite>();
+			water.position = new Vector2(water.position.x - waterSpeed, water.position.y);
+			if (water.position.x < -(Screen.width + water.size.x) / 2)
+				water.position = new Vector2((Screen.width + water.size.x) / 2, water.position.y);
 		}
 		
 		UpdateWindDirection();

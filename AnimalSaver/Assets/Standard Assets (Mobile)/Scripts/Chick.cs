@@ -157,7 +157,7 @@ public class Chick : MonoBehaviour {
 			
 			Main.animalSaved++;
 	    } else if(Chick_die == false && landBoat == null
-				&& (obj.name == "BackGround_Bottom"  ||  obj.name.StartsWith("Bee_left")
+				&& (obj.name.StartsWith("BackGround_Bottom")  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 		{
 			deadTime = Time.time;
