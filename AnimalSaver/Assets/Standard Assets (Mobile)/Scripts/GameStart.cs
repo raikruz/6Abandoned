@@ -22,7 +22,7 @@ public class GameStart : MonoBehaviour {
         {
             // We found the sprite so lets size it to match the screen's resolution
             // We will assume the OTView.zoom factor is set to zero (no zooming));
-            sprite.size = new Vector2(Screen.width/2, Screen.height);
+            sprite.size = new Vector2(Screen.width, Screen.height);
         }
     }
 

@@ -22,3 +22,12 @@ function OnMouseDown()
 	// load application 1
 	Application.LoadLevel(0);
 }
+
+// Update is called once per frame
+function Update () 
+{
+	if (Input.GetKeyDown(KeyCode.Escape)) 
+	{ 
+		Application.LoadLevel(0); // Back to Main menu
+	}
+}
