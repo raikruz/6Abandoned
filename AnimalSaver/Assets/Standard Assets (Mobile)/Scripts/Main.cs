@@ -43,21 +43,25 @@ public class Main : MonoBehaviour {
 		grass.position = new Vector2(grass.position.x,-(Screen.height-Bottom.size.y - grass.size.y)/2);
 			
 		Resize("Score", 2);
+		OTObject Waterbottom = OT.ObjectByName("BackGround_Bottom_1");
+		Waterbottom.position = new Vector2(Waterbottom.position.x+ Waterbottom.size.x,Waterbottom.position.y);
         // set initialized notifier to true so we only initialize once.
 		for (int i = 0; i < boatNum; ++i)
 		{
 			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 			boat.name = "Boat" + i.ToString();
 			boat.size = new Vector2(Screen.width * 0.6f, Screen.width * 0.6f * 124 /357);
-			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);			
+			//boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);
+			//1/4 of boat height is under water
+			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.25f));
 		}
 		
 		// water should move.
 
-			OTObject Waterbottom = OT.ObjectByName("BackGround_Bottom_1");
-			Waterbottom.position = new Vector2(Waterbottom.position.x+ Waterbottom.size.x,Waterbottom.position.y);
-			OTObject Watertop = OT.ObjectByName("BackGround_BottomWatertop_1");
-			Watertop.position = new Vector2(Watertop.size.x + Watertop.position.x, Watertop.position.y);
+		
+		
+		OTObject Watertop = OT.ObjectByName("BackGround_BottomWatertop_1");
+		Watertop.position = new Vector2(Watertop.size.x + Watertop.position.x, Watertop.position.y);
 		
 //		for (int i = 0; i < Screen.width;)
 //		{
@@ -163,18 +167,18 @@ public class Main : MonoBehaviour {
 			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 			if(randomNumberObs==0){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
-				float positionY= random.Next(0,Screen.height);
+				float positionY= random.Next(Screen.height/2,Screen.height); // obstacle is always generated on bottom to avoid kill animals soon after genrated.
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
 			}
 			if(randomNumberObs==1){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
-				float positionY= random.Next(0,Screen.height);
+				float positionY= random.Next(Screen.height/2,Screen.height);
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
 			}
 			if(randomNumberObs==2){
 				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 205 /254);
 				float positionX= random.Next(0,Screen.width);
-				float positionY= random.Next(0,Screen.height);
+				float positionY= random.Next(Screen.height/2,Screen.height);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
 			}
 
