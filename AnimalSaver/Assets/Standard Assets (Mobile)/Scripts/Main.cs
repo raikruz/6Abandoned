@@ -22,6 +22,7 @@ public class Main : MonoBehaviour {
 	float t;
 	float t2;
 	float tWind = 0;
+	float boatposY = 0f; // fixed and initialized at Start() function
 	public static float windDuration = 2.0f;
 	public static uint animalSaved;
 	public static bool gameOver;
@@ -53,7 +54,8 @@ public class Main : MonoBehaviour {
 			boat.size = new Vector2(Screen.width * 0.6f, Screen.width * 0.6f * 124 /357);
 			//boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);
 			//1/4 of boat height is under water
-			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.25f));
+			boatposY = -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.25f); // fixed value
+			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), boatposY);
 		}
 		
 		// water should move.
@@ -192,7 +194,7 @@ public class Main : MonoBehaviour {
 			OTSprite boat = OT.ObjectByName(boatName).GetComponent<OTSprite>();
 			boat.position = new Vector2(boat.position.x - boatSpeed, boat.position.y);
 			if (boat.position.x < -(Screen.width + boat.size.x) / 2)
-				boat.position = new Vector2((Screen.width + boat.size.x) / 2, -(Screen.height - boat.size.y * 2) / 2);
+				boat.position = new Vector2((Screen.width + boat.size.x) / 2, boatposY);
 		}
 		for (int i = 0; i < waterNum; ++i)
 		{
