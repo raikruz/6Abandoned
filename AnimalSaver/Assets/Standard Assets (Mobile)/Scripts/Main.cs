@@ -169,18 +169,18 @@ public class Main : MonoBehaviour {
 			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 			if(randomNumberObs==0){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
-				float positionY= random.Next(Screen.height/2,Screen.height); // obstacle is always generated on bottom to avoid kill animals soon after genrated.
+				float positionY= random.Next(Screen.height/4,Screen.height); // obstacle is always generated on bottom 3/4 area to avoid kill animals soon after genrated.
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
 			}
 			if(randomNumberObs==1){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 184 /196);
-				float positionY= random.Next(Screen.height/2,Screen.height);
+				float positionY= random.Next(Screen.height/4,Screen.height);
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
 			}
 			if(randomNumberObs==2){
 				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 205 /254);
 				float positionX= random.Next(0,Screen.width);
-				float positionY= random.Next(Screen.height/2,Screen.height);
+				float positionY= random.Next(Screen.height/4,Screen.height);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
 			}
 
