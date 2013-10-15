@@ -144,8 +144,9 @@ public class Cow : MonoBehaviour {
 		{
 		 	// Destroy the object
 		 	Destroy(cow.gameObject);
-		 	// Test Game Over function
-			//Application.LoadLevel(2);
+		 	// Game Over if any animal died
+			if(Cow_die == true)
+				Application.LoadLevel(2);
 	
 		}
 	}
