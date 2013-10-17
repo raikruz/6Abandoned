@@ -38,11 +38,11 @@ public class Main : MonoBehaviour {
 		Resize("BackGround_Bottom_1",1);
 		Resize("BackGround_BottomWatertop_1", 3);
 		Resize("BackGround_BottomgrassBorder",4);
-		Resize("BackGround_Bottomgrass",4);
 		OTObject Bottom = OT.ObjectByName("BackGround_Bottom_0");
 		OTObject grass = OT.ObjectByName("BackGround_Bottomgrass");
-		grass.position = new Vector2(grass.position.x,-(Screen.height-Bottom.size.y - grass.size.y)/2);
-			
+		grass.size = new Vector2(Screen.width , Screen.height*80f/1280f);
+		grass.position = new Vector2(0,Bottom.position.y + Bottom.size.y/2 - grass.size.y/2);
+		
 		Resize("Score", 2);
 		OTObject Waterbottom = OT.ObjectByName("BackGround_Bottom_1");
 		Waterbottom.position = new Vector2(Waterbottom.position.x+ Waterbottom.size.x,Waterbottom.position.y);
@@ -59,8 +59,6 @@ public class Main : MonoBehaviour {
 		}
 		
 		// water should move.
-
-		
 		
 		OTObject Watertop = OT.ObjectByName("BackGround_BottomWatertop_1");
 		Watertop.position = new Vector2(Watertop.size.x + Watertop.position.x, Watertop.position.y);

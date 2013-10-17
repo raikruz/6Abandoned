@@ -13,6 +13,9 @@ public class Chick : MonoBehaviour {
 	bool bWindAffected;
 	float tWind;
 	float deadTime;
+	float dragstep;
+	AudioSource sound;
+	AudioSource died;
 	// Use this for initialization
 	void Start () {
 		landBoat = null;
@@ -29,7 +32,7 @@ public class Chick : MonoBehaviour {
 	 	chick.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
 		chick.rigidbody.velocity = new Vector3(0, -15,0);
-		chick.size = new Vector2(Screen.width *0.0767f, Screen.width *.0767f*1.233f);
+		chick.size = new Vector2(Screen.width *0.115f, Screen.width *.115f*1.233f);
 		
 	 	float randomValue1 = Random.value;
 	 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
@@ -51,6 +54,10 @@ public class Chick : MonoBehaviour {
 		bWindAffected = false;
 		tWind = 0;
 		deadTime = 0f;
+		dragstep = Screen.height*0.05f;
+		AudioSource[] aSources = GetComponents<AudioSource>();
+    	sound = aSources[0];
+    	died = aSources[1];
 	}
 	
 	// Update is called once per frame
@@ -58,7 +65,7 @@ public class Chick : MonoBehaviour {
 		Vector3 targetPos = transform.position;
 		float tmpY =  targetPos.y;
 		float tmpX =  targetPos.x;
-		
+		//tmpY = startPos.y +  chick.rigidbody.velocity.y* Time.time;
 		// if it lands on one boat, let it move with boat
 		if(landBoat != null) {
 			tmpX += landBoat.position.x - landBoatPosX;
@@ -85,20 +92,21 @@ public class Chick : MonoBehaviour {
 				if(Main.WindDirection == "left")
 				{
 					chick.frameIndex = 1;
-					startPos.x += -30 * Time.deltaTime;
-					audio.Play();
+					startPos.x += -dragstep * Time.deltaTime;
+					sound.Play();
 				}
 				else if(Main.WindDirection == "right")
 				{
 					chick.frameIndex = 3;
-					startPos.x += 30 * Time.deltaTime;
-					audio.Play();
+					startPos.x += dragstep * Time.deltaTime;
+					sound.Play();
 				}
 				else if(Main.WindDirection == "down")
 				{
 					chick.frameIndex = 0;
-					tmpY = targetPos.y - 30 * Time.deltaTime;
-					audio.Play();
+					tmpY -= dragstep * Time.deltaTime;
+					startPos.y -= dragstep * Time.deltaTime;
+					sound.Play();
 				}
 				else 
 					chick.frameIndex = 0;
@@ -112,8 +120,8 @@ public class Chick : MonoBehaviour {
 		}
 		else 
 		{
+			died.Play();
 			chick.frameIndex = 2;
-			Main.gameOver = true;
 			chick.rigidbody.velocity = new Vector3(0, chick.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
 
@@ -132,11 +140,13 @@ public class Chick : MonoBehaviour {
 				tmpX = -(Screen.width - chick.size.x)/2;
 			if (tmpX >  (Screen.width- chick.size.x)/2)
 				tmpX = (Screen.width- chick.size.x)/2;
+			//tmpY = startPos.y -  chick.rigidbody.velocity.y * Time.time;
 			chick.position = new Vector2(tmpX,tmpY);
 		}
 		
 		if (chick.outOfView)
 		{
+			Main.gameOver = true;
 		 	// Destroy the object
 		 	Destroy(chick.gameObject);
 		 	// Game Over if any animal died

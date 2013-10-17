@@ -15,6 +15,9 @@ public class Cow : MonoBehaviour {
 	bool bWindAffected;
 	float tWind;
 	float deadTime;
+	float dragstep;
+	AudioSource sound;
+	AudioSource died;
 	// Use this for initialization
 	void Start () {
 		//landWater = null;
@@ -32,7 +35,7 @@ public class Cow : MonoBehaviour {
 	 	cow.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
 		cow.rigidbody.velocity = new Vector3(0, -25,0);
-		cow.size = new Vector2(Screen.width *0.17f, Screen.width *0.17f*1.333f);
+		cow.size = new Vector2(Screen.width *0.255f, Screen.width *0.255f*1.333f);
 		
 	 	float randomValue1 = Random.value;
 	 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
@@ -54,6 +57,12 @@ public class Cow : MonoBehaviour {
 		bWindAffected = false;
 		tWind = 0;
 		deadTime = 0f;
+		dragstep = Screen.height * 0.05f;
+		
+		AudioSource[] aSources = GetComponents<AudioSource>();
+    	sound = aSources[0];
+    	died = aSources[1];
+
 	}
 	
 	// Update is called once per frame
@@ -61,6 +70,7 @@ public class Cow : MonoBehaviour {
 		Vector3 targetPos = transform.position;
 		float tmpY =  targetPos.y;
 		float tmpX =  targetPos.x;
+		//tmpY = startPos.y +  cow.rigidbody.velocity.y * Time.time;
 		
 		// if it lands on one boat, let it move with boat
 		if(landBoat != null) {
@@ -84,21 +94,23 @@ public class Cow : MonoBehaviour {
 				if(Main.WindDirection == "left")
 				{
 					cow.frameIndex = 2;
-					startPos.x += -30 * Time.deltaTime;
-					audio.Play();
+					startPos.x += -dragstep * Time.deltaTime;
+					sound.Play();
 				}
 				else if(Main.WindDirection == "right")
 	
 				{
 					cow.frameIndex = 3;
-					startPos.x += 30 * Time.deltaTime;
-					audio.Play();			
+					startPos.x += dragstep * Time.deltaTime;
+					sound.Play();			
 				}
 				else if(Main.WindDirection == "down")
 				{
 					cow.frameIndex = 1;
-					tmpY = targetPos.y - 30 * Time.deltaTime;
-					audio.Play();
+					//startPos.y -= 30 * Time.deltaTime;
+					tmpY -=  dragstep * Time.deltaTime;
+					startPos.y -=  dragstep * Time.deltaTime;
+					sound.Play();
 				}
 				else
 					cow.frameIndex = 1;
@@ -131,11 +143,13 @@ public class Cow : MonoBehaviour {
 				tmpX = -(Screen.width - cow.size.x)/2;
 			if (tmpX >  (Screen.width- cow.size.x)/2)
 				tmpX = (Screen.width- cow.size.x)/2;
+			//tmpY = startPos.y -  cow.rigidbody.velocity.y * Time.time;
 			cow.position = new Vector2(tmpX,tmpY);
 
 		} // end if (cow_die == false)
 		else //Cow_die == true
 		{
+			died.Play();
 			//cow.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
 			cow.rigidbody.velocity = new Vector3(0, cow.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
