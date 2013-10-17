@@ -6,3 +6,7 @@ function Awake () {
 
 // use it like this
 //NameOfTheScript.Score = ...;
+
+function Update(){
+	Score = Main.animalSaved;
+}
