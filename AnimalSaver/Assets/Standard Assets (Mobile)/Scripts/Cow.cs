@@ -18,6 +18,7 @@ public class Cow : MonoBehaviour {
 	float dragstep;
 	AudioSource sound;
 	AudioSource died;
+	//AudioSource generated;
 	// Use this for initialization
 	void Start () {
 		//landWater = null;
@@ -60,8 +61,9 @@ public class Cow : MonoBehaviour {
 		dragstep = Screen.height * 0.05f;
 		
 		AudioSource[] aSources = GetComponents<AudioSource>();
-    	sound = aSources[0];
-    	died = aSources[1];
+    	sound = aSources[0];//Drag
+    	died = aSources[1];//dead
+		
 
 	}
 	
@@ -149,8 +151,6 @@ public class Cow : MonoBehaviour {
 		} // end if (cow_die == false)
 		else //Cow_die == true
 		{
-			died.Play();
-			//cow.position = new Vector2(tmpX,tmpY- 0.5f*9.8f*(Time.deltaTime)*(Time.deltaTime));
 			cow.rigidbody.velocity = new Vector3(0, cow.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
 
@@ -182,6 +182,7 @@ public class Cow : MonoBehaviour {
 				&& (obj.name.StartsWith("BackGround_Bottom")  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 			{
+				died.Play();
 				deadTime = Time.time;
 		    	// show the Cow dead left object 
 				cow.frameIndex = 0;
@@ -199,8 +200,4 @@ public class Cow : MonoBehaviour {
 		bWindAffected = true;
 	}
 	
-	//function onOutOfView(owner:OTObject)
-	//{
-	//    OT.DestroyObject(owner);
-	//}
 }
