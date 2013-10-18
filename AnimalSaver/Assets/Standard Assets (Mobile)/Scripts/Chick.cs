@@ -120,7 +120,6 @@ public class Chick : MonoBehaviour {
 		}
 		else 
 		{
-			died.Play();
 			chick.frameIndex = 2;
 			chick.rigidbody.velocity = new Vector3(0, chick.rigidbody.velocity.y  - 9.8f*(Time.time - deadTime), 0);
 		}
@@ -171,6 +170,7 @@ public class Chick : MonoBehaviour {
 				&& (obj.name.StartsWith("BackGround_Bottom")  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))
 		{
+			died.Play();
 			deadTime = Time.time;
 			// show the Cow dead left object 
 			chick.frameIndex = 2;
