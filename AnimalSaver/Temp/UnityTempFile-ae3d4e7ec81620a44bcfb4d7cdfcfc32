@@ -1,0 +1,76 @@
+-debug
+-target:library
+-nowarn:0169
+-out:Temp/Assembly-CSharp.dll
+-r:"C:/Program Files (x86)/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/Managed/UnityEngine.dll"
+-r:Library/ScriptAssemblies/Assembly-CSharp-firstpass.dll
+-r:Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll
+-define:UNITY_ANDROID
+-define:ENABLE_MICROPHONE
+-define:ENABLE_TEXTUREID_MAP
+-define:ENABLE_AUDIO_FMOD
+-define:ENABLE_MONO
+-define:ENABLE_TERRAIN
+-define:ENABLE_SUBSTANCE
+-define:ENABLE_GENERICS
+-define:ENABLE_WWW
+-define:ENABLE_IMAGEEFFECTS
+-define:ENABLE_WEBCAM
+-define:RENDER_SOFTWARE_CURSOR
+-define:ENABLE_NETWORK
+-define:ENABLE_PHYSICS
+-define:ENABLE_CACHING
+-define:ENABLE_CLOTH
+-define:UNITY_ANDROID_API
+-define:ENABLE_SHADOWS
+-define:ENABLE_AUDIO
+-define:ENABLE_SINGLE_INSTANCE_BUILD_SETTING
+-define:UNITY_4_2_1
+-define:UNITY_4_2
+Assets/Example/SampleCodeUse.cs
+"Assets/Orthello/Examples/0 - Simple Examples/(Unity Pro) NavMesh Pathfinding/Agent.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/3D integration/App.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/3D integration/Arrow.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/Clipping/ClipSprites.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/DragTest/DragTest.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/DragTest/DragTestMain.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/Multi Resolution Art/MultiResolution.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/Persistance/PersistentSprite.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/RotateTowards/TestRotateTowards.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/TextSprites/OTTextChalc.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/TextSprites/OTTextImages.cs"
+"Assets/Orthello/Examples/0 - Simple Examples/TextSprites/OTTextPortago.cs"
+"Assets/Orthello/Examples/1 - Paralax scrolling FilledSprite/CExample1.cs"
+"Assets/Orthello/Examples/2 - Moving collidable sprites/CBlock2.cs"
+"Assets/Orthello/Examples/2 - Moving collidable sprites/CExample2.cs"
+"Assets/Orthello/Examples/2 - Moving collidable sprites/CStar2.cs"
+"Assets/Orthello/Examples/3 - Shooting Asteroids/CAsteroid3.cs"
+"Assets/Orthello/Examples/3 - Shooting Asteroids/CBullet3.cs"
+"Assets/Orthello/Examples/3 - Shooting Asteroids/CExample3.cs"
+"Assets/Orthello/Examples/4 - Follow Target View/CExample4.cs"
+"Assets/Orthello/Examples/4 - Follow Target View/CMover4.cs"
+"Assets/Orthello/Examples/5 - Creating At Runtime/CExample5.cs"
+"Assets/Orthello/Examples/6 - Physics/CExample6.cs"
+"Assets/Orthello/Examples/7 - Tweening/CExample7.cs"
+"Assets/Orthello/Examples/7 - Tweening/CStar7_1.cs"
+"Assets/Orthello/Examples/7 - Tweening/CStar7_2.cs"
+"Assets/Orthello/Examples/8 - Prefab-Support/test8.cs"
+Assets/Source/DrawActivity.cs
+Assets/Source/DrawActivityOnResult.cs
+Assets/Source/DrawingArea.cs
+Assets/Source/DrawingAreaOnResult.cs
+Assets/Source/ZLog.cs
+"Assets/Standard Assets (Mobile)/Scripts/BeeAnimationL.cs"
+"Assets/Standard Assets (Mobile)/Scripts/BeeAnimationR.cs"
+"Assets/Standard Assets (Mobile)/Scripts/BeeMovementL.cs"
+"Assets/Standard Assets (Mobile)/Scripts/BeeMovementR.cs"
+"Assets/Standard Assets (Mobile)/Scripts/Boat.cs"
+"Assets/Standard Assets (Mobile)/Scripts/Chick.cs"
+"Assets/Standard Assets (Mobile)/Scripts/Cow.cs"
+"Assets/Standard Assets (Mobile)/Scripts/FlyTrapperAnimation.cs"
+"Assets/Standard Assets (Mobile)/Scripts/GameStart.cs"
+"Assets/Standard Assets (Mobile)/Scripts/Main.cs"
+"Assets/Standard Assets (Mobile)/Scripts/ScoreDisplay.cs"
+"Assets/Standard Assets (Mobile)/Scripts/gameScores.cs"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Mono\lib/mono/unity\System.Runtime.Serialization.dll"
+-r:"C:/Program Files (x86)/Unity/Editor/Data/Mono\lib/mono/unity\System.Xml.Linq.dll"
