@@ -40,6 +40,11 @@ public class GameStart : MonoBehaviour {
 			Initialize();
 			return;
 		}
+		// respond to Escape Key
+		if (Input.GetKeyDown(KeyCode.Escape)) 
+		{ 
+			Application.LoadLevel(0); // Back to Main menu
+		}
 
 	}
 }
