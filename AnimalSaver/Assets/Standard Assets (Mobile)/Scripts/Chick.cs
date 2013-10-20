@@ -159,6 +159,12 @@ public class Chick : MonoBehaviour {
 	    OTObject obj = owner.collisionObject;  
 		if(Chick_die == false && (obj.name == "Boat0" || obj.name == "Boat1"))
 	    {
+			// make sure the animal is ON the boat
+			if((chick.position.x-chick.size.x/2)< (obj.position.x-obj.size.x/2))
+				chick.position = new Vector2(obj.position.x-obj.size.x/2+ chick.size.x/2,chick.position.y);
+			else if((chick.position.x+chick.size.x/2)> (obj.position.x+obj.size.x/2))//-0.25*obj.size.x is a tolerance
+				chick.position = new Vector2(obj.position.x+obj.size.x/2- chick.size.x/2-0.25f*obj.size.x,chick.position.y);
+	    	
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
 	    	chick.frameIndex = 0;

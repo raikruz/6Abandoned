@@ -167,10 +167,15 @@ public class Cow : MonoBehaviour {
 
 	public void OnCollided(OTObject owner)
 	{
-		OTObject obj = owner.collisionObject;  
+		OTObject obj = owner.collisionObject; 
 		if(Cow_die == false
 	     	&& (obj.name == "Boat0" || obj.name == "Boat1")) 
 	    {
+			// make sure the animal is ON the boat
+			if((cow.position.x-cow.size.x/2)< (obj.position.x-obj.size.x/2))
+				cow.position = new Vector2(obj.position.x-obj.size.x/2+ cow.size.x/2,cow.position.y);
+			else if((cow.position.x+cow.size.x/2)> (obj.position.x+obj.size.x/2))//-0.25*obj.size.x is a tolerance
+				cow.position = new Vector2(obj.position.x+obj.size.x/2- cow.size.x/2-0.25f*obj.size.x,cow.position.y);
 	    	landBoat = owner.collisionObject;
 	    	landBoatPosX = landBoat.position.x;
 	    	cow.frameIndex = 1;

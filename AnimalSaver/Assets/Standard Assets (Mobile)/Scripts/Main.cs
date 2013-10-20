@@ -53,9 +53,10 @@ public class Main : MonoBehaviour {
 			boat.name = "Boat" + i.ToString();
 			boat.size = new Vector2(Screen.width * 0.6f, Screen.width * 0.6f * 124 /357);
 			//boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);
-			//1/4 of boat height is under water
-			boatposY = -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.25f); // fixed value
-			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), boatposY);
+			//1/10 of boat height is under water
+			boatposY = -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.4f); // fixed value
+			// only one boat shown at the same time
+			boat.position = new Vector2((Screen.width + boat.size.x) *(0.5f+i), boatposY); 
 		}
 		
 		// water should move.
