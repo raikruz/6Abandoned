@@ -19,30 +19,30 @@ public class FlyTrapperAnimation : MonoBehaviour {
 			 audio.Play();
 			 flyTrapper.frameIndex=0; 
 		}
-		else if(elapsed<2)
+		else if(elapsed<3)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=1; 
-		}else if(elapsed<3)
+		}else if(elapsed<5)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=2; 
 		}
-		else if(elapsed<4)
+		else if(elapsed<7)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=3; 
-		}else if(elapsed<5)
+		}else if(elapsed<9)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=4; 
-		}	else if(elapsed<9)
+		}	else if(elapsed<13)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=5; 
 			flyTrapper.collidable=true;
 	
-		} else if(elapsed<10)
+		} else if(elapsed<14)
 			{	
 			 audio.Play();
 			 flyTrapper.frameIndex=6; 
