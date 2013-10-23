@@ -51,12 +51,12 @@ public class Main : MonoBehaviour {
 		{
 			OTSprite boat = OT.CreateObject("Boat").GetComponent<OTSprite>();
 			boat.name = "Boat" + i.ToString();
-			boat.size = new Vector2(Screen.width * 0.6f, Screen.width * 0.6f * 124 /357);
-			//boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), -(Screen.height - boat.size.y * 2) / 2);
+			boat.size = new Vector2(Screen.width * 0.5f, Screen.width * 0.5f * 124 /357);
 			//1/10 of boat height is under water
 			boatposY = -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.4f); // fixed value
+			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), boatposY);// -(Screen.height - boat.size.y * 2) / 2);
 			// only one boat shown at the same time
-			boat.position = new Vector2((Screen.width + boat.size.x) *(0.5f+i), boatposY); 
+			//boat.position = new Vector2((Screen.width + boat.size.x) *(0.5f+i), boatposY); 
 		}
 		
 		// water should move.
@@ -72,12 +72,23 @@ public class Main : MonoBehaviour {
 //		}
 		t2 = 0;
 		
+		// create 
+		InitWind();
+	}
+	
+	void InitWind()
+	{	
 		windLeft = OT.ObjectByName("WindLeft");
 		windRight = OT.ObjectByName("WindRight");
 		windDown = OT.ObjectByName("WindDown");
-		// create 
+		windLeft.visible = false;
+		windRight.visible = false;
+		windDown.visible = false;
+		tWind = 0;
+		windDown.size = new Vector2(Screen.width * 0.1f, Screen.width * 0.2f);
+		windLeft.size = new Vector2(windDown.size.y, windDown.size.x);
+		windRight.size = new Vector2(windDown.size.y, windDown.size.x);
 	}
-	
 
     // This method will resize the a FilledSprite ( provided by name )
     // to match the current view (resolution).
