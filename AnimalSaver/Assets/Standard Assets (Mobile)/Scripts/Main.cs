@@ -190,7 +190,7 @@ public class Main : MonoBehaviour {
 			if(randomNumberObs==2){
 				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 205 /254);
 				float positionX= random.Next(0,Screen.width);
-				float positionY= random.Next(Screen.height/4,Screen.height);
+				float positionY= random.Next(Screen.height/4,Screen.height*3/4);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
 			}
 

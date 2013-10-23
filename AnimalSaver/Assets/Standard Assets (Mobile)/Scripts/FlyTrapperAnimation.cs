@@ -36,7 +36,7 @@ public class FlyTrapperAnimation : MonoBehaviour {
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=4; 
-		}	else if(elapsed<6)
+		}	else if(elapsed<9)
 		{	
 			 audio.Play();
 			 flyTrapper.frameIndex=5; 
