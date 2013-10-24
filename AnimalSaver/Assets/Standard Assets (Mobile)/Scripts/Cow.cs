@@ -35,7 +35,7 @@ public class Cow : MonoBehaviour {
 		// initialize the velocity and start position
 	 	cow.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
-		cow.rigidbody.velocity = new Vector3(0, -25,0);
+		cow.rigidbody.velocity = new Vector3(0, -50,0);
 		cow.size = new Vector2(Screen.width *0.255f, Screen.width *0.255f*1.333f);
 		
 	 	float randomValue1 = Random.value;
