@@ -26,10 +26,10 @@ public class BeeMovementR : MonoBehaviour {
 		positionY = bee.position.y;
 		positionX++;
 		bee.position = new Vector2(positionX,positionY);
-		if(positionX> (Screen.width+bee.size.x))
+		if(positionX> ((Screen.width/2)+bee.size.x))
 		{
 			Destroy(bee.gameObject);
-			Main.decreaseObstacle(1);
+			Main.decreaseObstacle(0);
 		}
 	}
 }

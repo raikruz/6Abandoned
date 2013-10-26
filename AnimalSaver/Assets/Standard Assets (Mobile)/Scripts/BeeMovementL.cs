@@ -22,12 +22,11 @@ public class BeeMovementL : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
 		positionX = bee.position.x;
 		positionY = bee.position.y;
 		positionX--;
 		bee.position = new Vector2(positionX,positionY);
-		if(positionX< (-Screen.width-bee.size.x))
+		if(positionX< (-(Screen.width/2)-bee.size.x))
 		{
 			Destroy(bee.gameObject);
 			Main.decreaseObstacle(0);

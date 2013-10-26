@@ -14,8 +14,10 @@ public class Main : MonoBehaviour {
 	static int level=1;
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Bee_left","Bee_right","Maneater_plant"};
-	static int[] maxObstacle = new int[] {1,1,1};
+	static int[] maxObstacle = new int[] {1,1};
 	static int[] numObstacle = new int[] {0,0,0};
+	static int[] maxAnimal = new int[] {1,1};
+	static int[] numAnimal = new int[] {0,0};
 	Vector3 mousePosition;
 	Vector3 mouseUpPosition;
 	static string windDirection = "none";
@@ -31,7 +33,10 @@ public class Main : MonoBehaviour {
 	public static bool gameOver;
 	// Use this for initialization
 	void Start () {
-
+		int[] numObstacle = new int[] {0,0,0};
+		int[] maxObstacle = new int[] {1,1};
+		int[] numAnimal = new int[] {0,0};
+		int[] maxAnimal = new int[] {1,1};
 		animalSaved = 0;
 		gameOver = false;
 		// resize filled sprites to match screen size
@@ -165,39 +170,51 @@ public class Main : MonoBehaviour {
 			Initialize();
 			return;
 		}
+		level = (int)(Mathf.Log(animalSaved+1,2))+1;
 		int randomNumber = random.Next(0, 2);
+		setMaxAnimal();
 		t += Time.deltaTime;
 		
 		t2 += Time.deltaTime;
 		if (t > 5.0f)
 		{
-			
-			OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
+			if((randomNumber==0)&&(numAnimal[0]<maxAnimal[0])){
+				OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
+				numAnimal[0]++;
+			}
+			if((randomNumber==1)&&(numAnimal[1]<maxAnimal[1])){
+				OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
+				numAnimal[1]++;
+			}
 			t = 0;
 		}
+		level = (int)(Mathf.Log(animalSaved+1,2))+1;
+		setMaxObstacle();
 		int randomNumberObs = random.Next(0, 3);
 		if(t2 > 3f)
 		{
 			// Create Obstacle every 3 seconds
-			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 			if((randomNumberObs==0)&&(numObstacle[0]<maxObstacle[0])){
+				OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 196 /184); //184 / 196
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4); // obstacle is always generated on bottom 3/4 area to avoid kill animals soon after genrated.
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
 				numObstacle[0]++;
 			}
-			if((randomNumberObs==1)&&(numObstacle[1]<maxObstacle[1])){
+			if((randomNumberObs==1)&&(numObstacle[0]<maxObstacle[0])){
+				OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 196 /184); //184 / 196
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4);
-				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
-				numObstacle[1]++;
+				obj2.position = new Vector2((-Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
+				numObstacle[0]++;
 			}
-			if((randomNumberObs==2)&&(numObstacle[2]<maxObstacle[2])){
+			if((randomNumberObs==2)&&(numObstacle[1]<maxObstacle[1])){
+				OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
 				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 254 /205);  //205 / 254
 				float positionX= random.Next(0,Screen.width);
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
-				numObstacle[2]++;
+				numObstacle[1]++;
 			}
 
 			t2 = 0;
@@ -369,14 +386,23 @@ public class Main : MonoBehaviour {
 	
 	public static void setMaxObstacle()
 	{
-			maxObstacle[0]= (int)(level* 1.5f);
-			maxObstacle[1]= (int)(level* 1.5f);
-			maxObstacle[2]= (int)(level* 1f);
+			maxObstacle[0]= (int)(level/3);
+			maxObstacle[1]= (int)(level/4);
+
+	}
+		public static void setMaxAnimal()
+	{
+			maxAnimal[0]= 1;
+			maxAnimal[1]= (int)(level/2);
 
 	}
 	public static void decreaseObstacle(int choice)
 	{
 			numObstacle[choice]--;
+	}
+	public static void decreaseAnimal(int choice)
+	{
+			numAnimal[choice]--;
 	}
 	public void OnAnimationFinish(OTObject owner)
    {

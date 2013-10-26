@@ -75,6 +75,8 @@ public class Chick : MonoBehaviour {
 			{
 			 // Destroy the object
 			 Destroy(chick.gameObject);
+			 Main.decreaseAnimal(1);
+
 			}
 			return;
 		}
@@ -148,6 +150,7 @@ public class Chick : MonoBehaviour {
 			Main.gameOver = true;
 		 	// Destroy the object
 		 	Destroy(chick.gameObject);
+			Main.decreaseAnimal(0);
 		 	// Game Over if any animal died
 			if(Chick_die == true)
 				Application.LoadLevel(2);
@@ -172,6 +175,8 @@ public class Chick : MonoBehaviour {
 	    	chick.collidable = false; // no need enter OnCollided any more
 			
 			Main.animalSaved++;
+			Main.decreaseAnimal(0);
+
 	    } else if(Chick_die == false && landBoat == null
 				&& (obj.name.StartsWith("BackGround_Bottom")  ||  obj.name.StartsWith("Bee_left")
 			||obj.name.StartsWith("Bee_right") ||obj.name.StartsWith("Maneater_plant")))

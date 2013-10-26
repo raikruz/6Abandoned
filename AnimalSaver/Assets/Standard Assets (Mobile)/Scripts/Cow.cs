@@ -83,6 +83,7 @@ public class Cow : MonoBehaviour {
 			{
 			 // Destroy the object
 			 Destroy(cow.gameObject);
+			 Main.decreaseAnimal(0);
 			}
 			return;
 		}
@@ -158,6 +159,7 @@ public class Cow : MonoBehaviour {
 		{
 		 	// Destroy the object
 		 	Destroy(cow.gameObject);
+			Main.decreaseAnimal(0);
 		 	// Game Over if any animal died
 			if(Cow_die == true)
 				Application.LoadLevel(2);
