@@ -30,6 +30,7 @@ public class BeeMovementL : MonoBehaviour {
 		if(positionX< (-Screen.width-bee.size.x))
 		{
 			Destroy(bee.gameObject);
+			Main.decreaseObstacle(0);
 		}
 	}
 }

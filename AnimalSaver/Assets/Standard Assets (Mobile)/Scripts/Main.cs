@@ -11,8 +11,11 @@ public class Main : MonoBehaviour {
 	static int boatNum = 2;
 	static int waterSpeed = 1;
 	static int waterNum = 2;
+	static int level=1;
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Bee_left","Bee_right","Maneater_plant"};
+	static int[] maxObstacle = new int[] {1,1,1};
+	static int[] numObstacle = new int[] {0,0,0};
 	Vector3 mousePosition;
 	Vector3 mouseUpPosition;
 	static string windDirection = "none";
@@ -177,21 +180,24 @@ public class Main : MonoBehaviour {
 		{
 			// Create Obstacle every 3 seconds
 			OTSprite obj2 = OT.CreateObject(Obstacles[randomNumberObs]).GetComponent<OTSprite>();
-			if(randomNumberObs==0){
+			if((randomNumberObs==0)&&(numObstacle[0]<maxObstacle[0])){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 196 /184); //184 / 196
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4); // obstacle is always generated on bottom 3/4 area to avoid kill animals soon after genrated.
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
+				numObstacle[0]++;
 			}
-			if(randomNumberObs==1){
+			if((randomNumberObs==1)&&(numObstacle[1]<maxObstacle[1])){
 				obj2.size = new Vector2(Screen.width / 12f, Screen.width / 12f * 196 /184); //184 / 196
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4);
 				obj2.position = new Vector2((Screen.width + obj2.size.x) / 2 , ((Screen.height/2) - positionY));
+				numObstacle[1]++;
 			}
-			if(randomNumberObs==2){
+			if((randomNumberObs==2)&&(numObstacle[2]<maxObstacle[2])){
 				obj2.size = new Vector2(Screen.width / 8f, Screen.width / 8f * 254 /205);  //205 / 254
 				float positionX= random.Next(0,Screen.width);
 				float positionY= random.Next(Screen.height/4,Screen.height*3/4);
 				obj2.position = new Vector2(((Screen.width/2) - positionX ) , ((Screen.height/2) - positionY));
+				numObstacle[2]++;
 			}
 
 			t2 = 0;
@@ -361,6 +367,17 @@ public class Main : MonoBehaviour {
 		}
 	}
 	
+	public static void setMaxObstacle()
+	{
+			maxObstacle[0]= (int)(level* 1.5f);
+			maxObstacle[1]= (int)(level* 1.5f);
+			maxObstacle[2]= (int)(level* 1f);
+
+	}
+	public static void decreaseObstacle(int choice)
+	{
+			numObstacle[choice]--;
+	}
 	public void OnAnimationFinish(OTObject owner)
    {
 //        if (owner == ManEatFlower)

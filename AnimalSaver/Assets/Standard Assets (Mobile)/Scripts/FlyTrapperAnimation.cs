@@ -70,6 +70,8 @@ public class FlyTrapperAnimation : MonoBehaviour {
 		}else
 		{
 			 	Destroy(flyTrapper.gameObject);
+				Main.decreaseObstacle(2);
+
 		}
 	}
 }
