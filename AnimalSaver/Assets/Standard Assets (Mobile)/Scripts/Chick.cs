@@ -31,7 +31,7 @@ public class Chick : MonoBehaviour {
 		// initialize the velocity and start position
 	 	chick.rigidbody.isKinematic = false;
 		// initialize the velocity as 25 in -y direction
-		chick.rigidbody.velocity = new Vector3(0, -15,0);
+		chick.rigidbody.velocity = new Vector3(0, -50,0);
 		chick.size = new Vector2(Screen.width *0.115f, Screen.width *.115f*1.233f);
 		
 	 	float randomValue1 = Random.value;
@@ -136,7 +136,7 @@ public class Chick : MonoBehaviour {
 		
 		// Reset the position according to interaction
 		if (Chick_die == false){
-			tmpX = startPos.x+(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+			tmpX = startPos.x+(1f/((0.012f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
 			if (tmpX  < - (Screen.width - chick.size.x)/2)
 				tmpX = -(Screen.width - chick.size.x)/2;
 			if (tmpX >  (Screen.width- chick.size.x)/2)

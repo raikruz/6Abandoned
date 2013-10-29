@@ -141,7 +141,7 @@ public class Cow : MonoBehaviour {
 		
 		// Reset the position according to interaction
 		if (Cow_die == false){
-			tmpX = startPos.x+(1f/((0.012f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
+			tmpX = startPos.x+(1f/((0.006f)+0.00005f*Time.time))* Mathf.Cos(tmpY*0.015f-k);
 			if (tmpX  < - (Screen.width - cow.size.x)/2)
 				tmpX = -(Screen.width - cow.size.x)/2;
 			if (tmpX >  (Screen.width- cow.size.x)/2)

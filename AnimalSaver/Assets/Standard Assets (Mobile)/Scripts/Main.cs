@@ -15,7 +15,7 @@ public class Main : MonoBehaviour {
 	static string[] animals = new string[] {"Cow", "Chick"};
 	static string[] Obstacles = new string[] {"Bee_left","Bee_right","Maneater_plant"};
 	static int[] maxObstacle = new int[] {1,1};
-	static int[] numObstacle = new int[] {0,0,0};
+	static int[] numObstacle = new int[] {0,0};
 	static int[] maxAnimal = new int[] {1,1};
 	static int[] numAnimal = new int[] {0,0};
 	Vector3 mousePosition;
@@ -33,10 +33,7 @@ public class Main : MonoBehaviour {
 	public static bool gameOver;
 	// Use this for initialization
 	void Start () {
-		int[] numObstacle = new int[] {0,0,0};
-		int[] maxObstacle = new int[] {1,1};
-		int[] numAnimal = new int[] {0,0};
-		int[] maxAnimal = new int[] {1,1};
+		initVariable();
 		animalSaved = 0;
 		gameOver = false;
 		// resize filled sprites to match screen size
@@ -84,6 +81,18 @@ public class Main : MonoBehaviour {
 		InitWind();
 	}
 	
+    void initVariable()
+	{
+		int i;
+		for(i=0;i<numObstacle.Length;i++)
+		{
+				numObstacle[i]=0;
+		}
+			for(i=0;i<numAnimal.Length;i++)
+		{
+				numAnimal[i]=0;
+		}
+	}
 	void InitWind()
 	{	
 		windLeft = OT.ObjectByName("WindLeft");
@@ -181,12 +190,15 @@ public class Main : MonoBehaviour {
 			if((randomNumber==0)&&(numAnimal[0]<maxAnimal[0])){
 				OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
 				numAnimal[0]++;
+							t = 0;
+
 			}
 			if((randomNumber==1)&&(numAnimal[1]<maxAnimal[1])){
 				OTSprite animal =  OT.CreateObject(animals[randomNumber]).GetComponent<OTSprite>();
 				numAnimal[1]++;
+							t = 0;
+
 			}
-			t = 0;
 		}
 		level = (int)(Mathf.Log(animalSaved+1,2))+1;
 		setMaxObstacle();
@@ -392,8 +404,8 @@ public class Main : MonoBehaviour {
 	}
 		public static void setMaxAnimal()
 	{
-			maxAnimal[0]= 1;
-			maxAnimal[1]= (int)(level/2);
+			maxAnimal[0]= (int)(level/2);
+			maxAnimal[1]= 2;
 
 	}
 	public static void decreaseObstacle(int choice)
