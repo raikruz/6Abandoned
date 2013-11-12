@@ -30,12 +30,12 @@ public class Chick : MonoBehaviour {
 		// initialize variables
 		// initialize the velocity and start position
 	 	chick.rigidbody.isKinematic = false;
-		// initialize the velocity as 25 in -y direction
+		// initialize the velocity as 50 in -y direction
 		chick.rigidbody.velocity = new Vector3(0, -50,0);
 		chick.size = new Vector2(Screen.width *0.115f, Screen.width *.115f*1.233f);
 		
 	 	float randomValue1 = Random.value;
-	 	// here 3*Cow.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
+	 	// here 3*chick.size.y is to give the gap on left and right. Please increase it to decrease difficulty, 
 	 	// because it will minimize the falling range on the sky 
 	 	// start position x should be random
 		var creationScreenwidth = Screen.width - 3*chick.size.y;
@@ -65,7 +65,6 @@ public class Chick : MonoBehaviour {
 		Vector3 targetPos = transform.position;
 		float tmpY =  targetPos.y;
 		float tmpX =  targetPos.x;
-		//tmpY = startPos.y +  chick.rigidbody.velocity.y* Time.time;
 		// if it lands on one boat, let it move with boat
 		if(landBoat != null) {
 			tmpX += landBoat.position.x - landBoatPosX;
@@ -81,11 +80,6 @@ public class Chick : MonoBehaviour {
 			return;
 		}
 		
-		//Not working. Need to figure out how to call funtion of other objects or scripts
-		//var other = Camera.main.GetComponent("main.cs");
-		// Call the function DoSomething on the script
-		//OT.print(other.WindDirection);
-		//OT.print(Main.WindDirection);
 		if(Chick_die == false)
 		{
 			if (bWindAffected)
@@ -183,7 +177,7 @@ public class Chick : MonoBehaviour {
 		{
 			died.Play();
 			deadTime = Time.time;
-			// show the Cow dead left object 
+			// show the chick dead left object 
 			chick.frameIndex = 2;
 			// set the die flag
 			Chick_die = true;
@@ -193,19 +187,8 @@ public class Chick : MonoBehaviour {
 	
 	void OnInput(OTObject owner)
 	{
-		//OT.print("OnInput " + owner.name);
 		bWindAffected = true;
 	}
 	
-	//function OnCollision(owner:OTObject)
-	//{
-	//	// a collision occured
-	//	OT.print(owner.name+" collided with "+owner.collisionObject.name+" at "+owner.collision.contacts[0].point);
-	//}
-	
-	//function onOutOfView(owner:OTObject)
-	//{
-	//    OT.DestroyObject(owner);
-	//}
-	
+
 }

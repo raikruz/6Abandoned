@@ -3,7 +3,6 @@ using System.Collections;
 
 public class Main : MonoBehaviour {
 	
-	bool initialized = false;           // initialization notifier
     bool scrolling = false;             // scrolling notifier
 	OTAnimatingSprite ManEatFlower; 
 	System.Random random = new System.Random();
@@ -60,21 +59,14 @@ public class Main : MonoBehaviour {
 			//1/10 of boat height is under water
 			boatposY = -(Screen.height/2 - Waterbottom.size.y  - boat.size.y*0.4f); // fixed value
 			boat.position = new Vector2((Screen.width + boat.size.x) / 2 * (i + 1), boatposY);// -(Screen.height - boat.size.y * 2) / 2);
-			// only one boat shown at the same time
+			//// only one boat shown at the same time
 			//boat.position = new Vector2((Screen.width + boat.size.x) *(0.5f+i), boatposY); 
 		}
 		
 		// water should move.
-		
 		OTObject Watertop = OT.ObjectByName("BackGround_BottomWatertop_1");
 		Watertop.position = new Vector2(Watertop.size.x + Watertop.position.x, Watertop.position.y);
 		
-//		for (int i = 0; i < Screen.width;)
-//		{
-//			OTSprite flower = OT.CreateObject(Obstacles[0]).GetComponent<OTSprite>();
-//			flower.position = new Vector2(-(Screen.width - flower.size.x) / 2 + i, -(Screen.height - flower.size.y) /2);
-//			i += (int)flower.size.x;
-//		}
 		t2 = 0;
 		
 		// create 
@@ -150,22 +142,6 @@ public class Main : MonoBehaviour {
         }
     }
 
-	 // application initialization
-    void Initialize()
-    {
-//		 // Get reference to gun animation sprite
-//        ManEatFlower = OT.ObjectByName("ManEatFlowerSprite") as OTAnimatingSprite;
-//		
-//        // Set gun animation finish delegate
-//        // HINT : We could use sprite.InitCallBacks(this) as well.
-//        // but because delegates are the C# way we will use this technique
-//        ManEatFlower.onAnimationFinish = OnAnimationFinish;
-//		
-//		// temporary
-//		ManEatFlower.Play();
-        // set our initialization notifier - we only want to initialize once
-        initialized = true;
-	}
 	// Update is called once per frame
 	void Update () 
 	{
@@ -174,11 +150,6 @@ public class Main : MonoBehaviour {
 			Application.LoadLevel(0); // Back to Main menu
 		}
 
-		if(!initialized)
-		{
-			Initialize();
-			return;
-		}
 		level = (int)(Mathf.Log(animalSaved+1,2))+1;
 		int randomNumber = random.Next(0, 2);
 		setMaxAnimal();
@@ -259,7 +230,6 @@ public class Main : MonoBehaviour {
 		}
 		
 		UpdateWindDirection();
-		//OT.print(windDirection);
 		DrawWind();	
 	}
 	
@@ -416,13 +386,4 @@ public class Main : MonoBehaviour {
 	{
 			numAnimal[choice]--;
 	}
-	public void OnAnimationFinish(OTObject owner)
-   {
-//        if (owner == ManEatFlower)
-//        {
-//           // Because the only animation that finishes will be the gun's 'shoot' animation frameset
-//            // we know that we have to switch to the gun's looping 'idle' animation frameset
-//            ManEatFlower.PlayLoop("Start");
-//        }
-    }
 }

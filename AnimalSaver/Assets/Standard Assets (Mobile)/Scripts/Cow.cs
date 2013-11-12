@@ -6,7 +6,6 @@ public class Cow : MonoBehaviour {
 	
 	OTSprite cow;  
 	bool Cow_die = false;
-	//OTObject landWater;
 	OTObject landBoat;  
 	float landBoatPosX;  
 	Vector3 startPos;
@@ -18,14 +17,12 @@ public class Cow : MonoBehaviour {
 	float dragstep;
 	AudioSource sound;
 	AudioSource died;
-	//AudioSource generated;
 	// Use this for initialization
 	void Start () {
-		//landWater = null;
 		landBoat = null;
 		landBoatPosX = 0f;
 		
-		// Get this chick's sprite
+		// Get this cow's sprite
 		cow = GetComponent<OTSprite>();
 		cow.InitCallBacks(this);
 		cow.onInput = OnInput;	
@@ -61,10 +58,8 @@ public class Cow : MonoBehaviour {
 		dragstep = Screen.height * 0.05f;
 		
 		AudioSource[] aSources = GetComponents<AudioSource>();
-    	sound = aSources[0];//Drag
-    	died = aSources[1];//dead
-		
-
+    	sound = aSources[0];//Drag sound
+    	died = aSources[1]; //dead sound
 	}
 	
 	// Update is called once per frame
@@ -72,7 +67,6 @@ public class Cow : MonoBehaviour {
 		Vector3 targetPos = transform.position;
 		float tmpY =  targetPos.y;
 		float tmpX =  targetPos.x;
-		//tmpY = startPos.y +  cow.rigidbody.velocity.y * Time.time;
 		
 		// if it lands on one boat, let it move with boat
 		if(landBoat != null) {
@@ -92,7 +86,6 @@ public class Cow : MonoBehaviour {
 		{
 			if (bWindAffected)
 			{
-				//OT.print(Main.WindDirection);
 				// respond to the left arrow
 				if(Main.WindDirection == "left")
 				{
@@ -110,15 +103,14 @@ public class Cow : MonoBehaviour {
 				else if(Main.WindDirection == "down")
 				{
 					cow.frameIndex = 1;
-					//startPos.y -= 30 * Time.deltaTime;
 					tmpY -=  dragstep * Time.deltaTime;
 					startPos.y -=  dragstep * Time.deltaTime;
 					sound.Play();
 				}
 				else
 					cow.frameIndex = 1;
-				// Reset the position according to interaction	
 				
+				// Reset the position according to interaction	
 				if (Main.WindDirection == "left" || 
 					Main.WindDirection == "right" ||
 					Main.WindDirection == "down")
@@ -146,7 +138,6 @@ public class Cow : MonoBehaviour {
 				tmpX = -(Screen.width - cow.size.x)/2;
 			if (tmpX >  (Screen.width- cow.size.x)/2)
 				tmpX = (Screen.width- cow.size.x)/2;
-			//tmpY = startPos.y -  cow.rigidbody.velocity.y * Time.time;
 			cow.position = new Vector2(tmpX,tmpY);
 
 		} // end if (cow_die == false)
@@ -203,7 +194,6 @@ public class Cow : MonoBehaviour {
 	//This one is local detection. set register input to true in designer
 	void OnInput(OTObject owner)
 	{
-		//OT.print("OnInput " + owner.name);
 		bWindAffected = true;
 	}
 	
